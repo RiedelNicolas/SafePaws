@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  backend:
+    #TODO: Add volumes
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: safe-paws-backend
+    ports:
+      - '3000:3000'
+    command: npm run start
