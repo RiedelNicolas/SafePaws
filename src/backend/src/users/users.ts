@@ -4,11 +4,15 @@ import { Request, Response } from 'express';
 import { CreateUserDto } from './dtos/users.dto';
 import { validate } from 'class-validator';
 import { client } from '../app';
+const jwt = require('jsonwebtoken');
 const router = express.Router()
+
+//TODO: Moverlo a .env
+const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk'
 
 
 //Creates a new user if it does not already exist
-router.post('/', async (req: Request, res: Response) => {
+router.post('/register', async (req: Request, res: Response) => {
   try {
     const createUserDto = new CreateUserDto({ email: req.body.email, password: req.body.password});
     createUserDto.email = req.body.email;
@@ -40,5 +44,37 @@ router.post('/', async (req: Request, res: Response) => {
    res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+router.post('/login', async (req, res) => {
+  try{
+    var email = req.body.email;
+    var password = req.body.password;
+    const users = client.db('SafePaws').collection('users'); //TODO: Remove this logic from each endpoint
+    const user = await users.findOne({ email: email });
+
+    if (!user) {
+      return res.status(400).json({message : 'Invalid email or password'})
+    }
+
+    if (await bcrypt.compare(password, user.password)) {
+      // the username, password combination is successful
+
+      const token = jwt.sign(
+        {
+          id: user._id,
+          username: user.email
+        },
+        JWT_SECRET
+      )
+
+      return res.status(200).json({token: token})
+    }
+    res.status(400).json({message : 'Invalid email or password'})
+
+  } catch(error){
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+})
 
 module.exports = router
