@@ -16,4 +16,3 @@ services:
     container_name: safe-paws-frontend
     ports:
       - '4173:4173'
-    command: npm run start

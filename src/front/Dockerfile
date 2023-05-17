@@ -6,4 +6,4 @@ RUN yarn install
 COPY . .
 
 # Preview, not production (port 4173)
-RUN yarn preview
+CMD yarn preview --port 4173
