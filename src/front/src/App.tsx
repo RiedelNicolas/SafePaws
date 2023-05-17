@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import './App.css'
 import { Login } from './screens/Login'
 import { Register } from './screens/Register';
 import { PasswordRecovery } from './screens/PasswordRecovery';
