@@ -5,10 +5,9 @@ import { useAppSelector } from "../store/hook"
 export const GuestGuard = () => {
   const token = useAppSelector((state) => state.auth.token);
 
-//   if (!token) {
-//     return <Outlet/>;
-//   }
+  if (!token) {
+    return <Outlet/>;
+  }
   
-//   return <Navigate to="/aasdasdas" />;
-return <Outlet></Outlet>
+  return <Navigate to="/" />;
 }
