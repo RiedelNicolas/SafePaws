@@ -3,21 +3,42 @@ import './App.css'
 import { Login } from './screens/Login'
 import { Register } from './screens/Register';
 import { PasswordRecovery } from './screens/PasswordRecovery';
+import { AuthGuard } from './components/AuthGuard';
+import { Home } from './screens/Home';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import { GuestGuard } from './components/GuestGuard';
 
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <AuthGuard/>,
+    children: [
+      {
+        path: "/",
+        element: <Home/>,
+      }
+    ]
   },
   {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/password-recovery",
-    element: <PasswordRecovery />,
+    path: "/",
+    element: <GuestGuard/>,
+    children: [
+      {
+        path: "/login",
+        element: <Login/>,
+      },
+      {
+        path: "/register",
+        element: <Register/>,
+      },
+      {
+        path: "/password-recovery",
+        element: <PasswordRecovery/>,
+      },
+    ]
   },
   {
     path: "*",
@@ -30,7 +51,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </>
   )
 }
