@@ -1,16 +1,22 @@
 import React from 'react';
 import { useAppDispatch } from '../store/store';
 import { login } from '../features/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
   const handleLogin = () => {
     dispatch(login({ email : "asd", password : "asdasd" }));
+  }
+
+  const navigateToRegister = () => {
+    navigate('/register');
   }
 
   return (
@@ -63,7 +69,11 @@ export const Login = () => {
             <div className='mt-8 flex justify-center items-center'>
               <p className='font-medium text-base'>Don't have an account?</p>
               <button
-                className='ml-2 font-medium text-base text-violet-500'>Sign up</button>
+                className='ml-2 font-medium text-base text-violet-500'
+                onClick={navigateToRegister}
+                >
+                  Sign up
+              </button>
             </div>
           </div>
         </div>

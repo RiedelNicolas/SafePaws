@@ -1,14 +1,23 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../store/hook';
+import { login } from '../features/authSlice';
 
 export const Register = () => {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [username, setUsername] = React.useState('');
+  const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
 
   const handleRegister = () => {
-    /* Handle Register */
+    dispatch(login({ email : "asd", password : "asdasd" }));
+  }
+
+  const navigateToLogin = () => {
+    navigate('/login');
   }
 
   return (
@@ -54,7 +63,9 @@ export const Register = () => {
             <div className='mt-8 flex justify-center items-center'>
               <p className='font-medium text-base'>Already have an account?</p>
               <button
-                className='ml-2 font-medium text-base text-violet-500'>Login</button>
+                className='ml-2 font-medium text-base text-violet-500'
+                onClick={navigateToLogin}
+                >Login</button>
             </div>
           </div>
         </div>
