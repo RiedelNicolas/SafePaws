@@ -5,5 +5,7 @@ COPY package.json yarn.lock ./
 RUN yarn install
 COPY . .
 
+RUN yarn build
+
 # Preview, not production (port 4173)
 CMD yarn preview --port 4173
