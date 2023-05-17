@@ -1,13 +1,16 @@
 import React from 'react';
+import { useAppDispatch } from '../store/store';
+import { login } from '../features/authSlice';
 
 export const Login = () => {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  const dispatch = useAppDispatch();
 
   const handleLogin = () => {
-    /* Handle Login*/
+    dispatch(login({ email : "asd", password : "asdasd" }));
   }
 
   return (
@@ -38,7 +41,7 @@ export const Login = () => {
             <div className='mt-8 flex justify-between items-center'>
               <div>
                 <input type="checkbox" id='remember' />
-                <label className='ml-2 font-medium text-base' for="remember">Remember for 30 days</label>
+                <label className='ml-2 font-medium text-base'>Remember for 30 days</label>
               </div>
               <button className='font-medium text-base text-violet-500'>Forgot password</button>
             </div>
