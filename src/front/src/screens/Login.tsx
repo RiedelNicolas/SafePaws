@@ -1,16 +1,16 @@
-
-
-
 import React from 'react';
+import { useAppDispatch } from '../store/store';
+import { login } from '../features/authSlice';
 
 export const Login = () => {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  const dispatch = useAppDispatch();
 
   const handleLogin = () => {
-    /* Handle Login*/
+    dispatch(login({ email : "asd", password : "asdasd" }));
   }
 
   return (
