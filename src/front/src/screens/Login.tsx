@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 
 export const Login = () => {
@@ -14,7 +11,7 @@ export const Login = () => {
   }
 
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen bg-stone-400">
       <div className="w-full flex items-center justify-center lg:w-1/2">
         <div className='w-11/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100'>
           <h1 className='text-5xl font-semibold'>Safe Paws</h1>
