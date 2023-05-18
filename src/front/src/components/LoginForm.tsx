@@ -14,15 +14,10 @@ export const LoginForm = () => {
     const dispatch = useAppDispatch();
 
     const { register, handleSubmit } = useForm<LoginData>();
-    const onSubmit: SubmitHandler<LoginData> = data => {
-        console.log(data);
-        handleLogin();
-    }
-
-    const handleLogin = () => {
+    const onSubmit: SubmitHandler<LoginData> = formData => {
         dispatch(startLoginWithEmailPassword({
-            email: "messi@gmail.com",
-            password: "123456"
+            email: formData.email,
+            password: formData.password
         }));
     }
 

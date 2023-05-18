@@ -15,16 +15,11 @@ export const RegisterForm = () => {
     const dispatch = useAppDispatch();
 
     const { register, handleSubmit } = useForm<RegisterData>();
-    const onSubmit: SubmitHandler<RegisterData> = data => {
-        console.log(data);
-        handleRegister();
-    }
-
-    const handleRegister = () => {
+    const onSubmit: SubmitHandler<RegisterData> = formData => {
         dispatch(startCreatingUserWithEmailPassword({
-            email: "example@gmail.com",
-            password: "123456",
-            username: "Messi"
+            email: formData.email,
+            password: formData.password,
+            username: formData.username
         }));
     }
 
