@@ -21,14 +21,14 @@ const userNavigation = [
   { name: 'Sign out', href: '#' },
 ]
 
-function classNames(...classes : any) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
 export function Home() {
   const dispatch = useAppDispatch();
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout(null));
   }
   return (
     <>

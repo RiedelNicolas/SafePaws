@@ -1,16 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export interface AuthState {
+export type AuthState = {
+    status: string | null;  // "checking", "authenticated", "not-authenticated";
     token: string | null;
     email: string | null;
-    loading: boolean;
     error: string | null;
-}
+};
 
 const initialState: AuthState = {
+    status: "not-authenticated",
     token: null,
     email: null,
-    loading: false,
     error: null,
 };
 
@@ -18,20 +18,21 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logout: (state) => {
+        logout: (state: AuthState, action: PayloadAction<string | null>) => {
             state.token = null;
             state.email = null;
-            state.loading = false;
+            state.status = "not-authenticated";
+            state.error = action.payload;
+        },
+        login: (state: AuthState, action: PayloadAction<AuthState>) => {
+            state.email = action.payload.email;
+            state.status = "authenticated";
             state.error = null;
         },
-        login : (state, action : PayloadAction<{email : string, password:string}>) => {
-            state.token = action.payload.password; // TODO, This is just a mock. Later, the request 
-            state.email = action.payload.email;
-            state.loading = false;
-            state.error = null;
-        }
+        checkingCredentials: (state: AuthState) => {
+            state.status = "checking";
+        },
     },
 });
 
-
-export const { logout, login } = authSlice.actions;
+export const { logout, login, checkingCredentials } = authSlice.actions;
