@@ -8,6 +8,9 @@ const users = require('./users/users');
 const app = express();
 export const client = new MongoClient(process.env.ATLAS_URI);
 
+var cors = require('cors');
+app.use(cors());
+
 app.get('/', async (req, res) => {
   res.send("SafePaws");
 });
