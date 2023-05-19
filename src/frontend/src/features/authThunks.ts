@@ -1,6 +1,7 @@
 import { checkingCredentials, logout, login } from "./";
 import type { AppDispatch } from "../store";
 import api from "../api/api";
+import { AxiosError } from "axios";
 
 export const checkingAuthentication = () => {
     return async (dispatch: AppDispatch) => {
@@ -31,7 +32,12 @@ export const startCreatingUserWithEmailPassword = ({ email, password, username }
 
         } catch (error) {
             console.log(error);
-            dispatch(logout("Error during sign up"));
+
+            if (error instanceof AxiosError && error.code === "ERR_NETWORK") {
+                dispatch(logout("Connection Error."));
+            } else {
+                dispatch(logout("It seems your credentials are incorrect or invalid."));
+            }
         }
     }
 }
@@ -60,7 +66,12 @@ export const startLoginWithEmailPassword = ({ email, password }:
 
         } catch (error) {
             console.log(error);
-            dispatch(logout("Error during sign in"));
+
+            if (error instanceof AxiosError && error.code === "ERR_NETWORK") {
+                dispatch(logout("Connection Error."));
+            } else {
+                dispatch(logout("It seems your credentials are incorrect or invalid."));
+            }
         }
 
     }
