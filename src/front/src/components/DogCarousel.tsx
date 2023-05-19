@@ -3,7 +3,7 @@ import { Carousel } from "flowbite-react"
 export const DogCarousel = () => {
     return (
         <div className="relative w-1/2 h-full">
-            <Carousel slideInterval={2000} >
+            <Carousel slideInterval={3000} leftControl={<></>} rightControl={<></>}>
                 {
                     images.map(image => <img src={image.path} key={image.id} className="object-cover h-full"></img>)
                 }

@@ -1,12 +1,12 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Login } from './screens/Login'
-import { Register } from './screens/Register';
 import { PasswordRecovery } from './screens/PasswordRecovery';
 import { AuthGuard } from './components/AuthGuard';
 import { Home } from './screens/Home';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { GuestGuard } from './components/GuestGuard';
+import { LoginForm } from './components/LoginForm';
+import { RegisterForm } from './components/RegisterForm';
 
 
 
@@ -27,11 +27,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/login",
-        element: <Login/>,
+        element: <LoginForm/>,
       },
       {
         path: "/register",
-        element: <Register/>,
+        element: <RegisterForm/>,
       },
       {
         path: "/password-recovery",
