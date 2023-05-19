@@ -1,3 +1,4 @@
+import { DogCarousel } from "../components/DogCarousel";
 import { LoadingCircle } from "../components/LoadingCircle"
 import { LoginForm } from "../components/LoginForm"
 import { useAppSelector } from "../store";
@@ -16,12 +17,8 @@ export const Login = () => {
         }
 
       </div>
-      <div className="hidden relative w-1/2 h-full lg:flex items-center justify-center bg-gray-200">
-        <img
-          src="image_dog_login.jpg"
-          className="object-cover h-full"
-        ></img>
-      </div>
+      <DogCarousel />
     </div>
   )
 }
+
