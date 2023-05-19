@@ -30,7 +30,10 @@ export const RegisterForm = () => {
 
     return (
         <div className='w-11/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100'>
-            <h1 className='text-5xl font-semibold'>Safe Paws</h1>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img style={{ width: "100px", height: "100px" }} src='icon.svg'></img>
+                <h1 className='text-5xl font-semibold'>Safe Paws</h1>
+            </div>
             <p className='font-medium text-lg text-gray-500 mt-4'>Welcome to Safe Paws! Let's get started on creating your account and unlocking a world of possibilities.</p>
             <div className='mt-8'>
                 <form onSubmit={handleSubmit(onSubmit)}>
