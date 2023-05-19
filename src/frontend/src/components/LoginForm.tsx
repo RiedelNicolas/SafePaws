@@ -57,15 +57,16 @@ export const LoginForm = () => {
                             <input type="checkbox" id='remember' />
                             <label className='ml-2 font-medium text-base'>Remember for 30 days</label>
                         </div>
-                        <button className='font-medium text-base text-violet-500'>Forgot password</button>
+                        <button
+                            type="button"
+                            className='font-medium text-base text-violet-500'
+                        >Forgot password</button>
                     </div>
 
                     <div style={{ display: (error) ? "" : 'none' }} className="mt-8 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                         <strong className="font-bold">Ups! </strong>
                         <span className="block sm:inline">It seems your credentials are incorrect or invalid.</span>
-                        <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
-                            <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" /></svg>
-                        </span>
+                        <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
                     </div>
 
                     <div className='mt-8 flex flex-col gap-y-4'>
@@ -76,6 +77,7 @@ export const LoginForm = () => {
                             Sign in
                         </button>
                         <button
+                            type="button"
                             className='flex items-center justify-center gap-2 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4  rounded-xl text-gray-700 font-semibold text-lg border-2 border-gray-100 '>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.26644 9.76453C6.19903 6.93863 8.85469 4.90909 12.0002 4.90909C13.6912 4.90909 15.2184 5.50909 16.4184 6.49091L19.9093 3C17.7821 1.14545 15.0548 0 12.0002 0C7.27031 0 3.19799 2.6983 1.24023 6.65002L5.26644 9.76453Z" fill="#EA4335" />
