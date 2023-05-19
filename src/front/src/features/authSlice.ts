@@ -25,12 +25,14 @@ export const authSlice = createSlice({
             state.error = action.payload;
         },
         login: (state: AuthState, action: PayloadAction<AuthState>) => {
+            state.token = action.payload.token;
             state.email = action.payload.email;
             state.status = "authenticated";
             state.error = null;
         },
         checkingCredentials: (state: AuthState) => {
             state.status = "checking";
+            state.error = null;
         },
     },
 });

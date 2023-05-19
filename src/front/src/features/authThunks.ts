@@ -1,5 +1,6 @@
 import { checkingCredentials, logout, login } from "./";
 import type { AppDispatch } from "../store";
+import api from "../api/api";
 
 export const checkingAuthentication = () => {
     return async (dispatch: AppDispatch) => {
@@ -12,14 +13,7 @@ export const startCreatingUserWithEmailPassword = ({ email, password, username }
     return async (dispatch: AppDispatch) => {
         dispatch(checkingCredentials());
         try {
-            // Integrar api
-            // const { data } = await api.post('/auth/new', { email, password, username });
-            const data = {
-                token: "123456qwerty",
-                password: password,
-                email: email,
-                username: username
-            }
+            const { data } = await api.post('/users/register', { email, password, username });
 
             localStorage.setItem("token", data.token);
 
@@ -33,7 +27,7 @@ export const startCreatingUserWithEmailPassword = ({ email, password, username }
                     error: null
                 }));
 
-            }, 2000);
+            }, 1000);
 
         } catch (error) {
             console.log(error);
@@ -47,13 +41,7 @@ export const startLoginWithEmailPassword = ({ email, password }:
     return async (dispatch: AppDispatch) => {
         dispatch(checkingCredentials());
         try {
-            // Integrar api
-            // const { data } = await api.post('/auth', { email, password });
-            const data = {
-                token: "123456qwerty",
-                password: password,
-                email: email
-            }
+            const { data } = await api.post('/users/login', { email, password });
 
             localStorage.setItem("token", data.token);
 
@@ -63,12 +51,12 @@ export const startLoginWithEmailPassword = ({ email, password }:
                 dispatch(login({
                     status: "authenticated",
                     token: data.token,
-                    email: data.email,
+                    email: email,
                     error: null
 
                 }));
 
-            }, 2000);
+            }, 1000);
 
         } catch (error) {
             console.log(error);
