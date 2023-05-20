@@ -1,6 +1,12 @@
 POST http://localhost:3000/publications/create
 content-type: application/json
-###
 
-GET http://localhost:3000/
-content-type: application/json
+{
+    "title": "Plataform",
+    "description": "Enjoy your vacations in a plataform in the middle of nowhere!",
+    "location": "Principality of Sealand",
+    "mascot": "shark",
+    "contact": "ilovesharks@sealandofficial.com"
+}
+
+###
