@@ -11,12 +11,12 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  { name: 'Feed', href: '#', current: true },
-  { name: 'Look for House', href: '#', current: false },
-  { name: 'Look for Keeper', href: '#', current: false },
+  { name: ' Looking for a Home', href: '#', current: true },
+  { name: 'Advise my Home', href: '#', current: false },
+
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
+  // { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
