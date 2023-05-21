@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import PublicationService from "./PublicationService";
+import { IPublication } from './IPublication';
 import { CreatePublicationDto } from './dtos/publications.dto';
 import { validate } from 'class-validator';
+
 
 export default class PublicationController {
     private publicationService: PublicationService;
@@ -13,12 +15,12 @@ export default class PublicationController {
     async createPublication(req: Request, res: Response) {
         try {
             // data validation
-            const publication = {
+            const publication: IPublication = {
                 owner: "email@gmail.com",        //TODO: que salga del JWT
                 title: req.body.title,
                 description: req.body.description,
                 location: req.body.location,
-                mascot: req.body.mascot,
+                pets: req.body.pets,
                 contact: req.body.contact,
                 petSitter: null,
                 status: "active"
@@ -33,16 +35,7 @@ export default class PublicationController {
                 })
             };
             
-            const result = this.publicationService.createPublication(
-                publication.owner,
-                publication.title,
-                publication.description,
-                publication.location,
-                publication.mascot,
-                publication.contact,
-                publication.petSitter,
-                publication.status
-            );
+            const result = this.publicationService.createPublication(publication);
 
             if (result) {
                 return res.status(201).json({

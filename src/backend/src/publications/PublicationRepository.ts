@@ -1,28 +1,11 @@
 import { client } from '../app';
+import { IPublication } from './IPublication';
+
 
 export default class PublicationRepository {
 
-    async createPublication(
-        owner: string,
-        title: string,
-        description: string,
-        location: string,
-        mascot: string,
-        contact: string,
-        petSitter: string,
-        status: string
-    ) {
+    async createPublication(publication: IPublication) {
         const publications = client.db('SafePaws').collection('publications');
-        const publication = {
-            owner,
-            title,
-            description,
-            location,
-            mascot,
-            contact,
-            petSitter,
-            status
-        }
         const result = await publications.insertOne(publication);
         return result.acknowledged;
     }

@@ -1,4 +1,5 @@
 import PublicationRepository from "./PublicationRepository";
+import { IPublication } from './IPublication';
 
 export default class PublicationService {
     private publicationRepository: PublicationRepository;
@@ -7,25 +8,7 @@ export default class PublicationService {
         this.publicationRepository = publicationRepository;
     }
 
-    createPublication(
-        owner: string,
-        title: string,
-        description: string,
-        location: string,
-        mascot: string,
-        contact: string,
-        petSitter: string,
-        status: string
-    ) {
-        return this.publicationRepository.createPublication(
-            owner,
-            title,
-            description,
-            location,
-            mascot,
-            contact,
-            petSitter,
-            status 
-        );
+    createPublication(publication: IPublication) {
+        return this.publicationRepository.createPublication(publication);
     }
-}
+};

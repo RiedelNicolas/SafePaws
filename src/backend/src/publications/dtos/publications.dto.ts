@@ -1,4 +1,5 @@
-import { IsOptional, MaxLength, IsNotEmpty } from 'class-validator';
+import { IsArray, ArrayNotEmpty, IsOptional,
+  MaxLength, IsNotEmpty, ArrayMaxSize } from 'class-validator';
 
 export class CreatePublicationDto {
     @MaxLength(255)
@@ -17,9 +18,11 @@ export class CreatePublicationDto {
     @IsNotEmpty()
     location: string;
 
-    @MaxLength(255)
+    @ArrayMaxSize(200)
+    @IsArray()
+    @ArrayNotEmpty()
     @IsNotEmpty()
-    mascot: string;
+    pets: Array<string>;
 
     @MaxLength(255)
     @IsNotEmpty()
@@ -37,7 +40,7 @@ export class CreatePublicationDto {
     this.title = args?.title;
     this.description = args?.description;
     this.location = args?.location;
-    this.mascot = args?.mascot;
+    this.pets = args?.pets;
     this.contact = args?.contact;
     this.petSitter = args?.petSitter;
     this.status = args?.status;
