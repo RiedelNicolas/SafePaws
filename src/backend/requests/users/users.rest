@@ -1,0 +1,19 @@
+POST http://localhost:3000/users/register
+content-type: application/json
+
+{
+    "email": "email@gmail.com",
+    "password": "password"
+}
+
+###
+POST http://localhost:3000/users/login
+content-type: application/json
+
+{
+    "email": "email@gmail.com",
+    "password": "password"
+}
+### token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjkyZWMyNTY3ZTM1MThkY2ZmZWY1YyIsInVzZXJuYW1lIjoiZW1haWxAZ21haWwuY29tIiwiaWF0IjoxNjg0NjE1MjE5fQ.C8O6FTVcXJfbEKyPzYneiXUuXEUNcsmuL_DLadDhX_g"
+
+###
