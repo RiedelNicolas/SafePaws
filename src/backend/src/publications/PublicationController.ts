@@ -26,25 +26,12 @@ export default class PublicationController {
                 status: "active"
             };
 
-            const createPublicationDto = new CreatePublicationDto(publication)
-            var errors = await validate(createPublicationDto);
+            const errors = await this.validatePublication(res, publication);
             if (errors.length > 0) {
                 console.log(errors);
                 return res.status(400).json({
                     message: "Invalid data"
                 })
-            };
-
-            for (let i = 0; i < publication.pets.length; i++) {
-                const pet: {name: string, type: string} = publication.pets[i];
-                const IPetsDto = new IPetDto(pet)
-                errors = await validate(IPetsDto);
-                if (errors.length > 0) {
-                    console.log(errors);
-                    return res.status(400).json({
-                        message: "Invalid data"
-                    })
-                };
             };
             
             const result = this.publicationService.createPublication(publication);
@@ -54,11 +41,33 @@ export default class PublicationController {
                     message: "Publication created"
                 });
             };
+
         } catch (error) {
             console.log(error);
             return res.status(400).json({
                 message: "Internal server error"
             });
         }
+    }
+
+    async validatePublication(res: Response, publication: IPublication) {
+        var errors = [];
+
+        const createPublicationDto = new CreatePublicationDto(publication)
+        errors = await validate(createPublicationDto);
+        if (errors.length > 0) {
+            return errors;
+        }
+
+        for (let i = 0; i < publication.pets.length; i++) {
+            const pet: {name: string, type: string} = publication.pets[i];
+            const IPetsDto = new IPetDto(pet)
+            errors = await validate(IPetsDto);
+            if (errors.length > 0) {
+                return errors;
+            };
+        };
+
+        return errors;
     }
 };
