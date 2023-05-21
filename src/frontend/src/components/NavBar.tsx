@@ -83,7 +83,7 @@ export const NavBar = () => {
                                 'rounded-md px-3 py-2 text-sm font-medium'
                             )}
                             >
-                            Looking for a Home
+                            Advise my Home
                         </Link>
                     </div>
                 </div>
