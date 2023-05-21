@@ -18,11 +18,11 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logout: (state: AuthState, action: PayloadAction<string | null>) => {
+        logout: (state: AuthState, action: PayloadAction<string | undefined>) => {
             state.token = null;
             state.email = null;
             state.status = "not-authenticated";
-            state.error = action.payload;
+            state.error = action.payload?? null;
         },
         login: (state: AuthState, action: PayloadAction<AuthState>) => {
             state.token = action.payload.token;

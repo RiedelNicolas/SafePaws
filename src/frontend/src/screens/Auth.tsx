@@ -1,7 +1,7 @@
+import { PropsWithChildren } from "react";
 import { useAppSelector } from "../store";
 import { LoadingCircle } from "../components/LoadingCircle";
 import { DogCarousel } from "../components/DogCarousel";
-import { PropsWithChildren } from "react";
 import { HouseCarousel } from "../components/HouseCarousel";
 
 export const Auth = ({ children }: PropsWithChildren) => {
