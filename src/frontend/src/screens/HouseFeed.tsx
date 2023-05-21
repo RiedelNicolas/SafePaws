@@ -25,7 +25,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function Home() {
+export function HouseFeed() {
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(logout(null));
