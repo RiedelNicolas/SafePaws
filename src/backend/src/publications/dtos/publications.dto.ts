@@ -1,7 +1,9 @@
 import { IsArray, ArrayNotEmpty, IsOptional,
-  MaxLength, IsNotEmpty, ArrayMaxSize } from 'class-validator';
+    MaxLength, IsNotEmpty, ArrayMaxSize, IsString,
+    ValidateNested } from 'class-validator';
+import { IPublication, IPets } from '../IPublication';
 
-export class CreatePublicationDto {
+export class CreatePublicationDto implements IPublication {
     @MaxLength(255)
     @IsNotEmpty()
     owner: string;
@@ -21,8 +23,7 @@ export class CreatePublicationDto {
     @ArrayMaxSize(200)
     @IsArray()
     @ArrayNotEmpty()
-    @IsNotEmpty()
-    pets: Array<string>;
+    pets: Array<IPets>;
 
     @MaxLength(255)
     @IsNotEmpty()
@@ -35,14 +36,14 @@ export class CreatePublicationDto {
     @IsNotEmpty()
     status: string;
 
-  constructor(args) {
-    this.owner = args?.owner;
-    this.title = args?.title;
-    this.description = args?.description;
-    this.location = args?.location;
-    this.pets = args?.pets;
-    this.contact = args?.contact;
-    this.petSitter = args?.petSitter;
-    this.status = args?.status;
-  }
+    constructor(args) {
+        this.owner = args?.owner;
+        this.title = args?.title;
+        this.description = args?.description;
+        this.location = args?.location;
+        this.pets = args?.pets;
+        this.contact = args?.contact;
+        this.petSitter = args?.petSitter;
+        this.status = args?.status;
+    }
 }

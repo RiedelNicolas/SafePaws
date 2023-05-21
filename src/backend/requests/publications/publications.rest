@@ -5,7 +5,10 @@ content-type: application/json
     "title": "Plataform",
     "description": "Enjoy your vacations in a plataform in the middle of nowhere!",
     "location": "Principality of Sealand",
-    "pets": ["shark 1, shark 2"],
+    "pets": [
+        {"Sharky": "shark"},
+        {"Smoothie": "shark"}
+    ],
     "contact": "ilovesharks@sealandofficial.com"
 }
 

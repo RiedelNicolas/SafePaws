@@ -3,7 +3,7 @@ export interface IPublication {
     title: string;
     description: string;
     location: string;
-    pets: Array<string>;
+    pets: Array<IPets>;
     contact: string;
     petSitter: string;
     status: string;
