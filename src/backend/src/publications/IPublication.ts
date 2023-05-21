@@ -3,12 +3,13 @@ export interface IPublication {
     title: string;
     description: string;
     location: string;
-    pets: Array<IPets>;
+    pets: Array<IPet>;
     contact: string;
     petSitter: string;
     status: string;
 };
 
-export interface IPets {
-    [key: string]: string   // name: type of animal
+export interface IPet {
+    name: string;
+    type: string;
 };
