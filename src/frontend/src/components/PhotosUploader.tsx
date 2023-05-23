@@ -1,15 +1,16 @@
-
-export const PhotosUploader = ({ addedPhotos, onChange }: { addedPhotos: any, onChange: any }) => { // Fix parameters
+export const PhotosUploader = ({ addedPhotos, setAddedPhotos }:
+  { addedPhotos: string[], setAddedPhotos: React.Dispatch<React.SetStateAction<string[]>> }) => {
 
   const uploadPhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    // Add Firebase logic
     console.log("Upload Photo")
-    onChange([...addedPhotos, "house_1/1.webp"])
-  
+    setAddedPhotos([...addedPhotos, "house_1/1.webp"])
   }
 
   const removePhoto = (event: React.MouseEvent<HTMLButtonElement>, filename: string) => {
     event.preventDefault();
-    onChange([...addedPhotos.filter((photo: any) => photo !== filename)]);
+    setAddedPhotos([...addedPhotos.filter((photo: string) => photo !== filename)]);
   }
 
   return (
