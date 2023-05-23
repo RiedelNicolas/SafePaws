@@ -20,7 +20,7 @@ export const AdviseMyHome = () => {
   const [address, setAddress] = useState('');
   const [description, setDescription] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
-  const [maxGuests, setMaxGuests] = useState("1");
+  const [maxGuests, setMaxGuests] = useState<string>("1");
 
   function inputHeader(text: string) {
     return (
@@ -91,7 +91,7 @@ export const AdviseMyHome = () => {
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                 {preInput('Accommodation information', 'Add information about the stayover')}
                 <div className="grid grid-cols-2 md:grid-cols-3">
-                  <div className=" mr-3">
+                  <div className="mr-3">
                     <h3 className="mt-2 -mb-1">Check in & out time</h3>
                     <div className="mt-1">
                       <Datepicker
@@ -102,8 +102,8 @@ export const AdviseMyHome = () => {
                   </div>
                   <div className="ml-3">
                     <h3 className="mt-2 -mb-1">Max number of guests</h3>
-                    <input type="number" value={maxGuests}
-                      onChange={ev => setMaxGuests(ev.target.value)}
+                    <input type="number" value={maxGuests} 
+                      onChange={event => setMaxGuests(event.target.value)}
                       className="w-full border-2 border-gray-100 rounded-xl mt-1 bg-transparent" />
                   </div>
                 </div>
