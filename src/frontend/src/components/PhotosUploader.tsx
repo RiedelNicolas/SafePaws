@@ -1,12 +1,44 @@
+import { getDownloadURL, getStorage, listAll, ref, uploadBytes } from "firebase/storage";
+import { FirebaseApp } from "../firebase/config";
+import { useAppSelector } from "../store";
+import { useEffect } from "react";
+
+// Create a root reference
+const storage = getStorage(FirebaseApp);
+
 export const PhotosUploader = ({ addedPhotos, setAddedPhotos }:
   { addedPhotos: string[], setAddedPhotos: React.Dispatch<React.SetStateAction<string[]>> }) => {
 
-  const uploadPhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    // Add Firebase logic
-    console.log("Upload Photo")
-    setAddedPhotos([...addedPhotos, "house_1/1.webp"])
+  const { email } = useAppSelector((state) => state.auth);
+
+  const fetchImages = async () => {
+    const storageRef = ref(storage, email!);
+    const urls = await Promise.all(
+      (await listAll(storageRef)).items.map((item) => getDownloadURL(item))
+    );
+    return Promise.all(urls);
   }
+  const loadImages = async () => {
+    const urls = await fetchImages();
+    setAddedPhotos(urls);
+  }
+
+  const uploadPhoto = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    // Add Firebase logic
+    await Promise.all(Array.from(event.target.files!).map(async file => {
+      const storageRef = ref(storage, email + "/" + Math.random().toString());
+      await uploadBytes(storageRef, file).then(() => {
+        console.log('Uploaded a blob or file!');
+      });
+    }));
+    loadImages();
+  }
+
+  useEffect(() => {
+    loadImages();
+  }, []);
 
   const removePhoto = (event: React.MouseEvent<HTMLButtonElement>, filename: string) => {
     event.preventDefault();

@@ -21,6 +21,8 @@ export const AdviseMyHome = () => {
   const [description, setDescription] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
   const [maxGuests, setMaxGuests] = useState<string>("1");
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [perks, setPerks] = useState<string[]>([]);
 
   function inputHeader(text: string) {
     return (
@@ -46,8 +48,6 @@ export const AdviseMyHome = () => {
     console.log("Save Place")
   }
 
-  const [photos, setPhotos] = useState<string[]>(imagesArray);
-  const [perks, setPerks] = useState<string[]>([]);
 
   return (
 
@@ -102,7 +102,7 @@ export const AdviseMyHome = () => {
                   </div>
                   <div className="ml-3">
                     <h3 className="mt-2 -mb-1">Max number of guests</h3>
-                    <input type="number" value={maxGuests} 
+                    <input type="number" value={maxGuests}
                       onChange={event => setMaxGuests(event.target.value)}
                       className="w-full border-2 border-gray-100 rounded-xl mt-1 bg-transparent" />
                   </div>
@@ -121,15 +121,3 @@ export const AdviseMyHome = () => {
     </div>
   )
 }
-
-const imagesArray = [
-  "house_1/1.webp",
-  "house_1/2.webp",
-  "house_1/3.webp",
-  "house_1/4.webp",
-  "house_1/5.webp",
-  "house_1/6.webp",
-  "house_1/7.webp",
-  "house_1/8.webp",
-  "house_1/9.webp"
-]
