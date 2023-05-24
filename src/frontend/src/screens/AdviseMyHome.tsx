@@ -21,7 +21,6 @@ export const AdviseMyHome = () => {
   const [description, setDescription] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
   const [maxGuests, setMaxGuests] = useState<string>("1");
-  const [photos, setPhotos] = useState<string[]>([]);
   const [perks, setPerks] = useState<string[]>([]);
 
   function inputHeader(text: string) {
@@ -48,7 +47,6 @@ export const AdviseMyHome = () => {
     console.log("Save Place")
   }
 
-
   return (
 
     <div className="p-8" style={{ display: "flex", justifyContent: "center" }}>
@@ -74,7 +72,7 @@ export const AdviseMyHome = () => {
                   placeholder="Address"
                   className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent" />
                 {preInput('Photos', 'More = Better')}
-                <PhotosUploader addedPhotos={photos} setAddedPhotos={setPhotos} />
+                <PhotosUploader />
                 {preInput('Description', 'Description of the place')}
                 <textarea
                   value={description}
