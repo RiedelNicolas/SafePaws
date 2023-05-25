@@ -19,6 +19,7 @@ router.post('/register', async (req: Request, res: Response) => {
     createUserDto.password = req.body.password;
     createUserDto.username = req.body.username;
     createUserDto.phoneNumber = req.body.phoneNumber;
+    createUserDto.paid = false;
 
     const errors = await validate(createUserDto);
     if (errors.length > 0) {
@@ -38,7 +39,8 @@ router.post('/register', async (req: Request, res: Response) => {
       email: createUserDto.email,
       password: hashedPassword,
       username: createUserDto.username,
-      phoneNumber: createUserDto.phoneNumber
+      phoneNumber: createUserDto.phoneNumber,
+      paid: createUserDto.paid
     };
 
     await users.insertOne(newUser);
@@ -71,9 +73,30 @@ router.post('/login', async (req, res) => {
         JWT_SECRET
       )
 
-      return res.status(200).json({token: token, username: user.username, mail: user.email, phoneNumber: user.phoneNumber})
+      return res.status(200).json({token: token, username: user.username, mail: user.email, phoneNumber: user.phoneNumber, paid: user.paid})
     }
     res.status(400).json({message : 'Invalid email or password'})
+
+  } catch(error){
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+})
+
+
+router.post('/pay', async (req, res) => {
+  try{
+    const users = client.db('SafePaws').collection('users'); //TODO: Remove this logic from each endpoint
+    var emailReq = req.body.email;
+
+    const filter = { email: emailReq };
+    const update = { $set: {paid: true }};
+
+    const doc = await users.findOneAndUpdate(filter, update);
+    if (!doc) {
+      return res.status(400).json({message : 'Invalid email or password'})
+    }
+    return res.status(200).json({message: ""});
 
   } catch(error){
     console.error(error);
