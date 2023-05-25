@@ -3,6 +3,8 @@ export interface IPublication {
     title: string;
     description: string;
     location: string;
+    dateStart: Date;
+    dateEnd: Date;
     pets: Array<IPet>;
     contact: string;
     petSitter: string;

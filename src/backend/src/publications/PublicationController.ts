@@ -20,6 +20,8 @@ export default class PublicationController {
                 title: req.body.title,
                 description: req.body.description,
                 location: req.body.location,
+                dateStart: new Date(req.body.dateStart),
+                dateEnd: new Date(req.body.dateEnd),
                 pets: req.body.pets,
                 contact: req.body.contact,
                 petSitter: null,
@@ -52,6 +54,9 @@ export default class PublicationController {
 
     async validatePublication(res: Response, publication: IPublication) {
         var errors = [];
+
+        const currentDate = new Date();
+        console.log(currentDate);
 
         const createPublicationDto = new CreatePublicationDto(publication)
         errors = await validate(createPublicationDto);
