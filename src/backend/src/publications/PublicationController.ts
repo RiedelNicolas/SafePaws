@@ -22,6 +22,7 @@ export default class PublicationController {
                 dateStart: new Date(req.body.dateStart),
                 dateEnd: new Date(req.body.dateEnd),
                 pets: req.body.pets,
+                perks: req.body.perks,
                 contact: req.body.contact,
                 petSitter: null,
                 status: "active"

@@ -33,6 +33,10 @@ export class CreatePublicationDto implements IPublication {
     @ArrayNotEmpty()
     pets: Array<IPet>;
 
+    @IsArray()
+    @IsNotEmpty()
+    perks: Array<string>
+
     @MaxLength(255)
     @IsNotEmpty()
     contact: string;
@@ -52,6 +56,7 @@ export class CreatePublicationDto implements IPublication {
         this.dateStart = args?.dateStart;
         this.dateEnd = args?.dateStart;
         this.pets = args?.pets;
+        this.perks = args?.perks;
         this.contact = args?.contact;
         this.petSitter = args?.petSitter;
         this.status = args?.status;

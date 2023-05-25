@@ -6,6 +6,7 @@ export interface IPublication {
     dateStart: Date;
     dateEnd: Date;
     pets: Array<IPet>;
+    perks: Array<string>;
     contact: string;
     petSitter: string;
     status: string;
