@@ -14,6 +14,7 @@
     "@heroicons/react": "^2.0.17",
     "@reduxjs/toolkit": "^1.9.5",
     "@tailwindcss/forms": "^0.5.3",
+    "@types/redux-persist": "^4.3.1",
     "axios": "^1.4.0",
     "dayjs": "^1.11.7",
     "firebase": "^9.22.0",
@@ -24,7 +25,8 @@
     "react-hook-form": "^7.43.9",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
-    "react-tailwindcss-datepicker": "^1.6.1"
+    "react-tailwindcss-datepicker": "^1.6.1",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
