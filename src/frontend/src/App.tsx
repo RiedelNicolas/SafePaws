@@ -9,6 +9,7 @@ import { GuestGuard } from './components/GuestGuard';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
 import { AdviseMyHome } from './screens/AdviseMyHome';
+import { Subscription } from './screens/Subscription';
 
 
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         path: "/password-recovery",
         element: <PasswordRecovery/>,
       },
+      {
+        path: "/pay",
+        element: <Subscription/>,
+      }
     ]
   },
   {
