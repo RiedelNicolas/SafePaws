@@ -16,6 +16,10 @@ export class CreatePublicationDto implements IPublication {
     @IsNotEmpty()
     description: string;
 
+    @IsOptional()
+    @MaxLength(1000)
+    extraInfo: string;
+
     @MaxLength(255)
     @IsNotEmpty()
     location: string;

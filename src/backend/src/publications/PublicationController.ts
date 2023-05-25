@@ -18,6 +18,7 @@ export default class PublicationController {
                 owner: "email@gmail.com",        //TODO: que salga del JWT
                 title: req.body.title,
                 description: req.body.description,
+                extraInfo: req.body.extraInfo,
                 location: req.body.location,
                 dateStart: new Date(req.body.dateStart),
                 dateEnd: new Date(req.body.dateEnd),
