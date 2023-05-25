@@ -82,6 +82,8 @@ export const authSlice = createSlice({
             state.email = null;
             state.status = "not-authenticated";
             state.error = action.payload?? null;
+            state.phoneNumber = null;
+            state.username = null;
         },
         clearError: (state: AuthState) => {
             state.error = null;
