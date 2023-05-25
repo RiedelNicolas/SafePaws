@@ -28,8 +28,8 @@ export default class PublicationController {
                 status: "active"
             };
 
-            const errors = await this.validatePublication(res, publication);
-            if (errors.length > 0) {
+            const errors = await this.validatePublication(publication);
+            if (errors.length > 0 || !this.validateDate(publication)) {
                 console.log(errors);
                 return res.status(400).json({
                     message: "Invalid data"
@@ -52,11 +52,8 @@ export default class PublicationController {
         }
     }
 
-    async validatePublication(res: Response, publication: IPublication) {
+    async validatePublication(publication: IPublication) {
         var errors = [];
-
-        const currentDate = new Date();
-        console.log(currentDate);
 
         const createPublicationDto = new CreatePublicationDto(publication)
         errors = await validate(createPublicationDto);
@@ -74,5 +71,9 @@ export default class PublicationController {
         };
 
         return errors;
+    }
+
+    validateDate(publication: IPublication) {
+        return publication.dateEnd > publication.dateStart;
     }
 };
