@@ -24,7 +24,7 @@ export const startCreatingUserWithEmailPassword = ({ email, password, username }
                 dispatch(login({
                     status: "authenticated",
                     token: data.token,
-                    email: data.email,
+                    email: email,
                     error: null
                 }));
 
