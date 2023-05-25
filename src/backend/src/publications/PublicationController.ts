@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import PublicationService from "./PublicationService";
 import { IPublication } from './IPublication';
-import { CreatePublicationDto, IPetDto } from './dtos/publications.dto';
-import { validate } from 'class-validator';
+import { validatePublication, validateDate } from './PublicationValidations';
 
 
 export default class PublicationController {
@@ -19,15 +18,19 @@ export default class PublicationController {
                 owner: "email@gmail.com",        //TODO: que salga del JWT
                 title: req.body.title,
                 description: req.body.description,
+                extraInfo: req.body.extraInfo,
                 location: req.body.location,
+                dateStart: new Date(req.body.dateStart),
+                dateEnd: new Date(req.body.dateEnd),
                 pets: req.body.pets,
+                perks: req.body.perks,
                 contact: req.body.contact,
                 petSitter: null,
                 status: "active"
             };
 
-            const errors = await this.validatePublication(res, publication);
-            if (errors.length > 0) {
+            const errors = await validatePublication(publication);
+            if (errors.length > 0 || !validateDate(publication)) {
                 console.log(errors);
                 return res.status(400).json({
                     message: "Invalid data"
@@ -48,26 +51,5 @@ export default class PublicationController {
                 message: "Internal server error"
             });
         }
-    }
-
-    async validatePublication(res: Response, publication: IPublication) {
-        var errors = [];
-
-        const createPublicationDto = new CreatePublicationDto(publication)
-        errors = await validate(createPublicationDto);
-        if (errors.length > 0) {
-            return errors;
-        }
-
-        for (let i = 0; i < publication.pets.length; i++) {
-            const pet: {name: string, type: string} = publication.pets[i];
-            const IPetsDto = new IPetDto(pet)
-            errors = await validate(IPetsDto);
-            if (errors.length > 0) {
-                return errors;
-            };
-        };
-
-        return errors;
     }
 };

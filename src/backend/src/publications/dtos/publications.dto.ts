@@ -1,6 +1,6 @@
 import { IsArray, ArrayNotEmpty, IsOptional,
     MaxLength, IsNotEmpty, ArrayMaxSize, IsString,
-    ValidateNested } from 'class-validator';
+    IsDate } from 'class-validator';
 import { IPublication, IPet } from '../IPublication';
 
 export class CreatePublicationDto implements IPublication {
@@ -16,14 +16,30 @@ export class CreatePublicationDto implements IPublication {
     @IsNotEmpty()
     description: string;
 
+    @IsOptional()
+    @MaxLength(1000)
+    extraInfo: string;
+
     @MaxLength(255)
     @IsNotEmpty()
     location: string;
+
+    @IsDate()
+    @IsNotEmpty()
+    dateStart: Date;
+
+    @IsDate()
+    @IsNotEmpty()
+    dateEnd: Date;
 
     @ArrayMaxSize(200)
     @IsArray()
     @ArrayNotEmpty()
     pets: Array<IPet>;
+
+    @IsArray()
+    @IsNotEmpty()
+    perks: Array<string>
 
     @MaxLength(255)
     @IsNotEmpty()
@@ -41,7 +57,10 @@ export class CreatePublicationDto implements IPublication {
         this.title = args?.title;
         this.description = args?.description;
         this.location = args?.location;
+        this.dateStart = args?.dateStart;
+        this.dateEnd = args?.dateStart;
         this.pets = args?.pets;
+        this.perks = args?.perks;
         this.contact = args?.contact;
         this.petSitter = args?.petSitter;
         this.status = args?.status;
