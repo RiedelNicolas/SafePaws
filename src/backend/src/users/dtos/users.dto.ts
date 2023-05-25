@@ -9,8 +9,18 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: string;
 
+  @IsString()
+  @IsNotEmpty()
+  username: string;
+
+  @IsString()
+  @IsNotEmpty()
+  phoneNumber: string;
+
   constructor(args) {
     this.email = args?.email;
     this.password = args?.password;
+    this.username = args?.username;
+    this.phoneNumber = args?.phoneNumber;
   }
 }
