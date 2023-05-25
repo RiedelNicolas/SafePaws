@@ -6,7 +6,11 @@ export default class PublicationRepository {
 
     async createPublication(publication: IPublication) {
         const publications = client.db('SafePaws').collection('publications');
-        const result = await publications.insertOne(publication);
-        return result.acknowledged;
-    }
-}
+        const result = await publications.findOneAndReplace(
+            { owner: publication.owner },
+            publication,
+            { upsert: true }
+        );
+        return result;
+    };
+};
