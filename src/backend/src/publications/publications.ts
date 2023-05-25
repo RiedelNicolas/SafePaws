@@ -15,4 +15,8 @@ router.post('/create', async (req: Request, res: Response) => {
     publicationController.createPublication(req, res);
 });
 
+router.get('/', async (req: Request, res: Response) => {
+    publicationController.getPublications(req, res);
+})
+
 module.exports = router;

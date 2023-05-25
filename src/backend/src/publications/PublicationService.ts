@@ -11,4 +11,9 @@ export default class PublicationService {
     createPublication(publication: IPublication) {
         return this.publicationRepository.createPublication(publication);
     }
+
+    async getPublications() {
+        const publications = await this.publicationRepository.getPublications();
+        return publications;
+    }
 };

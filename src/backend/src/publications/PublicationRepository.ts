@@ -1,16 +1,22 @@
 import { client } from '../app';
 import { IPublication } from './IPublication';
 
-
 export default class PublicationRepository {
+    //private publication = client.db('SafePaws').collection('publications');
 
     async createPublication(publication: IPublication) {
-        const publications = client.db('SafePaws').collection('publications');
-        const result = await publications.findOneAndReplace(
+        const publicationsDb = client.db('SafePaws').collection('publications');
+        const result = await publicationsDb.findOneAndReplace(
             { owner: publication.owner },
             publication,
             { upsert: true }
         );
         return result;
     };
+
+    async getPublications() {
+        const publicationsDb = client.db('SafePaws').collection('publications');
+        const publications = await publicationsDb.find({}).toArray();
+        return publications;
+    }
 };

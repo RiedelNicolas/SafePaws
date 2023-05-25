@@ -38,3 +38,7 @@ content-type: application/json
     ],
     "contact": "ilovesharks@sealandofficial.com"
 }
+
+###
+GET http://localhost:3000/publications/
+content-type: application/json

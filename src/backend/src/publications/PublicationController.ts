@@ -51,5 +51,20 @@ export default class PublicationController {
                 message: "Internal server error"
             });
         }
+    };
+
+    async getPublications(req: Request, res: Response) {
+        try {
+            const publications = await this.publicationService.getPublications();
+            return res.status(200).json({
+                message: "All publications",
+                data: publications
+            });
+        } catch (error) {
+            console.log(error);
+            return res.status(400).json({
+                message: "Internal server error"
+            });
+        }
     }
 };
