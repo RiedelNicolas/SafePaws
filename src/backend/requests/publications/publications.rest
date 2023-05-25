@@ -38,3 +38,11 @@ content-type: application/json
     ],
     "contact": "ilovesharks@sealandofficial.com"
 }
+
+### Get all publications
+GET http://localhost:3000/publications/
+content-type: application/json
+
+### Get a publication by the owner's email
+GET http://localhost:3000/publications/eemail@gmail.com
+content-type: application/json
