@@ -14,9 +14,11 @@ const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhf
 //Creates a new user if it does not already exist
 router.post('/register', async (req: Request, res: Response) => {
   try {
-    const createUserDto = new CreateUserDto({ email: req.body.email, password: req.body.password});
+    const createUserDto = new CreateUserDto({ email: req.body.email, password: req.body.password, username: req.body.username, phoneNumber : req.body.phoneNumber});
     createUserDto.email = req.body.email;
     createUserDto.password = req.body.password;
+    createUserDto.username = req.body.username;
+    createUserDto.phoneNumber = req.body.phoneNumber;
 
     const errors = await validate(createUserDto);
     if (errors.length > 0) {
@@ -35,6 +37,8 @@ router.post('/register', async (req: Request, res: Response) => {
     const newUser = {
       email: createUserDto.email,
       password: hashedPassword,
+      username: createUserDto.username,
+      phoneNumber: createUserDto.phoneNumber
     };
 
     await users.insertOne(newUser);
@@ -67,7 +71,7 @@ router.post('/login', async (req, res) => {
         JWT_SECRET
       )
 
-      return res.status(200).json({token: token})
+      return res.status(200).json({token: token, username: user.username, mail: user.email, phoneNumber: user.phoneNumber})
     }
     res.status(400).json({message : 'Invalid email or password'})
 
