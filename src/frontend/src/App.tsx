@@ -9,10 +9,15 @@ import { GuestGuard } from './components/GuestGuard';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
 import { AdviseMyHome } from './screens/AdviseMyHome';
+import { Pay } from './screens/Pay';
 
 
 
 const router = createBrowserRouter([
+  {
+    path: "/pay",
+    element: <Pay/>
+  },
   {
     path: "/",
     element: <AuthGuard/>,

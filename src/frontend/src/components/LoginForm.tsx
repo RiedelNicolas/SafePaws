@@ -27,7 +27,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <div className='w-10/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100'>
+        <div className='w-10/12 max-w-[700px] px-10 py-5 rounded-3xl bg-white border-2 border-gray-100'>
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <img style={{ width: "100px", height: "100px" }} src='icon.svg'></img>
                 <h1 className='text-5xl font-semibold'>Safe Paws</h1>

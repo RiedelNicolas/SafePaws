@@ -34,6 +34,9 @@ export const authSlice = createSlice({
             state.status = "checking";
             state.error = null;
         },
+        clearError: (state: AuthState) => {
+            state.error = null;
+        }
     },
 });
 

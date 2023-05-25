@@ -12,6 +12,7 @@ export const checkingAuthentication = () => {
 export const startCreatingUserWithEmailPassword = ({ email, password, username }:
     { email: string, password: string, username: string }) => {
     return async (dispatch: AppDispatch) => {
+        alert("Creating user");
         dispatch(checkingCredentials());
         try {
             const { data } = await api.post('/users/register', { email, password, username });

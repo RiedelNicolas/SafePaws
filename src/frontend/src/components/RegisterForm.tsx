@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store';
+import { useAppSelector } from '../store';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { startCreatingUserWithEmailPassword } from '../features';
 
@@ -12,16 +12,16 @@ type RegisterData = {
 export const RegisterForm = () => {
 
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
+
     const { error } = useAppSelector((state) => state.auth);
 
     const { register, handleSubmit } = useForm<RegisterData>();
     const onSubmit: SubmitHandler<RegisterData> = formData => {
-        dispatch(startCreatingUserWithEmailPassword({
+        startCreatingUserWithEmailPassword({
             email: formData.email,
             password: formData.password,
             username: formData.username
-        }));
+        });
     }
 
     const navigateToLogin = () => {
@@ -29,7 +29,7 @@ export const RegisterForm = () => {
     }
 
     return (
-        <div className='w-11/12 max-w-[700px] px-10 py-20 rounded-3xl bg-white border-2 border-gray-100'>
+        <div className='w-11/12 max-w-[700px] px-10 py-5 rounded-3xl bg-white border-2 border-gray-100'>
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <img style={{ width: "100px", height: "100px" }} src='icon.svg'></img>
                 <h1 className='text-5xl font-semibold'>Safe Paws</h1>
@@ -38,11 +38,12 @@ export const RegisterForm = () => {
             <div className='mt-8'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className='flex flex-col'>
-                        <label className='text-lg font-medium'>Username</label>
+                        <label className='text-lg font-medium'>Name</label>
                         <input
                             {...register("username")}
                             className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
-                            placeholder="Enter your username" />
+                            placeholder="Enter your username"
+                            />
                     </div>
 
                     <div className='flex flex-col mt-4'>
@@ -50,7 +51,9 @@ export const RegisterForm = () => {
                         <input
                             {...register("email")}
                             className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
-                            placeholder="Enter your email" />
+                            placeholder="Enter your email"
+                            type={"email"}
+                            />     
                     </div>
 
                     <div className='flex flex-col mt-4'>
@@ -60,6 +63,16 @@ export const RegisterForm = () => {
                             className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
                             placeholder="Enter your password"
                             type={"password"}
+                        />
+                    </div>
+
+                    <div className='flex flex-col mt-4'>
+                        <label className='text-lg font-medium'>Phone Number</label>
+                        <input
+                            {...register("password")}
+                            className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
+                            placeholder="Enter your password"
+                            type='tel'
                         />
                     </div>
 
