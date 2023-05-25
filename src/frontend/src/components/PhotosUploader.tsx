@@ -1,6 +1,6 @@
 import { StorageReference, deleteObject, getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { FirebaseStorage } from "../firebase/config";
-import { useAppSelector } from "../store";
+import { useAppSelector } from "../store/hook";
 import { useEffect, useState } from "react";
 
 type ImageInfo = {

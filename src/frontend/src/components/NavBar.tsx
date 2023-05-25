@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link, useLocation } from 'react-router-dom';
 import { useAppDispatch } from '../store/hook'
-import { logout } from '../features'
+import { logout } from '../features/authSlice'
 
 const user = {
     name: 'Tom Cook',

@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../store';
+import { useAppSelector } from "../store/hook";
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { startCreatingUserWithEmailPassword } from '../features';
 
 type RegisterData = {
     email: string,
@@ -13,15 +12,16 @@ export const RegisterForm = () => {
 
     const navigate = useNavigate();
 
-    const { error } = useAppSelector((state) => state.auth);
+    const error = useAppSelector((state) => state.auth.error);
 
     const { register, handleSubmit } = useForm<RegisterData>();
+
     const onSubmit: SubmitHandler<RegisterData> = formData => {
-        startCreatingUserWithEmailPassword({
-            email: formData.email,
-            password: formData.password,
-            username: formData.username
-        });
+        // startCreatingUserWithEmailPassword({
+        //     email: formData.email,
+        //     password: formData.password,
+        //     username: formData.username
+        // });
     }
 
     const navigateToLogin = () => {
@@ -57,22 +57,23 @@ export const RegisterForm = () => {
                     </div>
 
                     <div className='flex flex-col mt-4'>
-                        <label className='text-lg font-medium'>Password</label>
-                        <input
-                            {...register("password")}
-                            className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
-                            placeholder="Enter your password"
-                            type={"password"}
-                        />
-                    </div>
-
-                    <div className='flex flex-col mt-4'>
                         <label className='text-lg font-medium'>Phone Number</label>
                         <input
                             {...register("password")}
                             className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
                             placeholder="Enter your password"
                             type='tel'
+                        />
+                    </div>
+
+
+                    <div className='flex flex-col mt-4'>
+                        <label className='text-lg font-medium'>Password</label>
+                        <input
+                            {...register("password")}
+                            className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
+                            placeholder="Enter your password"
+                            type={"password"}
                         />
                     </div>
 

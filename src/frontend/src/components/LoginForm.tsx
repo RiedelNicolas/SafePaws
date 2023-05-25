@@ -1,7 +1,8 @@
-import { useAppDispatch, useAppSelector } from '../store';
+import { useAppDispatch, useAppSelector } from '../store/hook';
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from "react-hook-form";
-import { startLoginWithEmailPassword } from '../features';
+import { useEffect } from 'react';
+import { clearError, login } from '../features/authSlice';
 
 type LoginData = {
     email: string,
@@ -11,12 +12,19 @@ type LoginData = {
 export const LoginForm = () => {
 
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
+    const dispatch  = useAppDispatch();
     const { error } = useAppSelector((state) => state.auth);
 
+    useEffect(() => {
+        dispatch(clearError());
+    }, [dispatch]);
+
     const { register, handleSubmit } = useForm<LoginData>();
+
     const onSubmit: SubmitHandler<LoginData> = formData => {
-        dispatch(startLoginWithEmailPassword({
+
+        console.log(formData);
+        dispatch(login({
             email: formData.email,
             password: formData.password
         }));
@@ -35,6 +43,7 @@ export const LoginForm = () => {
             <p className='font-medium text-lg text-gray-500 mt-4'>Welcome back! Please enter you details.</p>
             <div className='mt-8'>
                 <form onSubmit={handleSubmit(onSubmit)}>
+                    
                     <div className='flex flex-col'>
                         <label className='text-lg font-medium'>Email</label>
                         <input
@@ -42,6 +51,7 @@ export const LoginForm = () => {
                             className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
                             placeholder="Enter your email" />
                     </div>
+                    
                     <div className='flex flex-col mt-4'>
                         <label className='text-lg font-medium'>Password</label>
                         <input
