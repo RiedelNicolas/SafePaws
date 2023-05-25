@@ -1,27 +1,32 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from "../store/hook";
+import { useAppDispatch, useAppSelector } from "../store/hook";
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { register as registerThunk} from '../features/authSlice';
 
 type RegisterData = {
     email: string,
     password: string,
-    username: string
+    username: string,
+    phoneNumber: string,
 };
 
 export const RegisterForm = () => {
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const error = useAppSelector((state) => state.auth.error);
 
     const { register, handleSubmit } = useForm<RegisterData>();
 
     const onSubmit: SubmitHandler<RegisterData> = formData => {
-        // startCreatingUserWithEmailPassword({
-        //     email: formData.email,
-        //     password: formData.password,
-        //     username: formData.username
-        // });
+        dispatch( registerThunk({
+            email: formData.email,
+            password: formData.password,
+            username: formData.username,
+            phoneNumber: formData.phoneNumber,
+
+        }))
     }
 
     const navigateToLogin = () => {
@@ -59,9 +64,9 @@ export const RegisterForm = () => {
                     <div className='flex flex-col mt-4'>
                         <label className='text-lg font-medium'>Phone Number</label>
                         <input
-                            {...register("password")}
+                            {...register("phoneNumber")}
                             className='w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent'
-                            placeholder="Enter your password"
+                            placeholder="Please enter your Phone Number"
                             type='tel'
                         />
                     </div>
