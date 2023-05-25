@@ -19,4 +19,8 @@ router.get('/', async (req: Request, res: Response) => {
     publicationController.getPublications(req, res);
 })
 
+router.get('/:owner', async (req: Request, res: Response) => {
+    publicationController.getOwnerPublication(req, res);
+});
+
 module.exports = router;

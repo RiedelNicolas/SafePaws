@@ -32,9 +32,7 @@ export default class PublicationController {
             const errors = await validatePublication(publication);
             if (errors.length > 0 || !validateDate(publication)) {
                 console.log(errors);
-                return res.status(400).json({
-                    message: "Invalid data"
-                })
+                return this.sendInvalidData(res);
             };
             
             const result = this.publicationService.createPublication(publication);
@@ -66,5 +64,31 @@ export default class PublicationController {
                 message: "Internal server error"
             });
         }
+    }
+
+    async getOwnerPublication(req: Request, res: Response) {
+        const owner = req.params.owner;
+        try {
+            const publication = await this.publicationService.getOwnerPublication(owner);
+            if (publication) {
+                return res.status(200).json({
+                    message: "Success to get the publication",
+                    data: publication
+                });
+            } else {
+                return this.sendInvalidData(res);
+            }
+        } catch (error) {
+            console.log(error);
+            return res.status(400).json({
+                message: "Internal server error"
+            });
+        }
+    }
+
+    sendInvalidData(res: Response) {
+        return res.status(400).json({
+            message: "Invalid data"
+        })
     }
 };

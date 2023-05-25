@@ -19,4 +19,12 @@ export default class PublicationRepository {
         const publications = await publicationsDb.find({}).toArray();
         return publications;
     }
+
+    async getOwnerPublication(owner: string) {
+        const publicationsDb = client.db('SafePaws').collection('publications');
+        const publication = await publicationsDb.find({
+            owner: owner
+        }).toArray();
+        return publication;
+    }
 };

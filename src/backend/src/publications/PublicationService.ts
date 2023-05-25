@@ -16,4 +16,9 @@ export default class PublicationService {
         const publications = await this.publicationRepository.getPublications();
         return publications;
     }
+
+    async getOwnerPublication(owner: string) {
+        const publication = await this.publicationRepository.getOwnerPublication(owner);
+        return publication;
+    }
 };
