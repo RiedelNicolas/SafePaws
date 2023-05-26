@@ -11,6 +11,7 @@ import { RegisterForm } from './components/RegisterForm';
 import { AdviseMyHome } from './screens/AdviseMyHome';
 import { Pay } from './screens/Pay';
 import { Toaster } from 'react-hot-toast';
+import { HouseDetail } from './screens/HouseDetail';
 
 
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/AdviseMyHome",
         element: <AdviseMyHome/>,
+      },
+      {
+        path: "/house/:email",
+        element: <HouseDetail/>,
       }
     ]
   },

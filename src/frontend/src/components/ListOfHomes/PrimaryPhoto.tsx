@@ -1,4 +1,4 @@
-import { StorageReference, deleteObject, getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { StorageReference, getDownloadURL, listAll, ref } from "firebase/storage";
 import { FirebaseStorage } from "../../firebase/config";
 import { useEffect, useState } from "react";
 
@@ -42,21 +42,15 @@ export const PrimaryPhoto = ({email} : Props) => {
    
     if(!primaryPhoto) {
         return (
-            <img 
-             src="https://fastly.picsum.photos/id/732/200/300.jpg?hmac=mBueuWVJ8LlL-R7Yt9w1ONAFVayQPH5DzVSO-lPyI9w"
-             alt="PrimaryPhoto"
-             className="h-full w-full object-cover object-center group-hover:opacity-75"
-            />
+            <div className="bg-gray-100">
+                <img className="object-contain h-48 w-96 ..." src={"./loading.gif"} alt={"asdasd"} />
+            </div>
         )
     }
     
   return (
-    <div className="h-300 w-400 bg-gray-200 flex items-center justify-center">
-        <img
-            src={primaryPhoto.url}
-            alt={"z<sdsd"}
-            className="max-h-full max-w-full object-cover object-center"
-            />
-  </div>
+    <div className="bg-gray-100 rounded-lg">
+        <img className="object-contain h-48 w-96 ..." src={primaryPhoto.url} alt={"asdasd"} />
+    </div>
   )
 }

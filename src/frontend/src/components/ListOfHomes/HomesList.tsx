@@ -1,6 +1,8 @@
 import {CalendarIcon, MapPinIcon } from '@heroicons/react/24/outline'
 import { Publications } from './getHomes';
 import { PrimaryPhoto } from './PrimaryPhoto';
+import { Link } from "react-router-dom";
+
 
 interface Props {
     publications: Publications[];
@@ -15,7 +17,7 @@ export const HomesList = ({publications} : Props) => {
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                     {publications.map((publication) => (
-                    <a key={publication.ownerName} href={""} className="group">
+                    <Link key={publication.ownerName} to={"/house/" + publication.owner} className="group">
                         
                         <PrimaryPhoto email={publication.owner}/>
                         
@@ -30,7 +32,7 @@ export const HomesList = ({publications} : Props) => {
                             <MapPinIcon className="w-4 h-4 mr-1 text-gray-500" />
                             <p className="mt-1 text-sm font-medium text-gray-900">{`${publication.location}`}</p>
                         </div>
-                    </a>
+                    </Link>
                     ))}
                 </div>
             </div>
