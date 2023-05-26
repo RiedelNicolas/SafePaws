@@ -6,7 +6,6 @@ export const AuthGuard = () => {
   const { status } = useAppSelector((state) => state.auth);
 
   if (status === "authenticated") {
-
     return (
       <>
         <NavBar/>
