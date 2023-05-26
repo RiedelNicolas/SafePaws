@@ -130,7 +130,7 @@ export const HouseDetail = () => {
               </div>
             </div>
             <div className="flex justify-center mt-8">
-              <Button className="w-full mt-4 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
+              <Button className="w-full transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
               onClick={()=>{setShowModal(true)}}
               >
                 Reserve this place
