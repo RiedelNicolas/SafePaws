@@ -16,7 +16,8 @@ export const login = createAsyncThunk< AuthState, { email: string, password: str
                 email: data.mail,
                 username: data.username,
                 phoneNumber : data.phoneNumber,
-                error: null
+                error: null,
+                paid : data.paid
             };
         } catch (error) {
             console.log(error);
@@ -41,7 +42,8 @@ export const register = createAsyncThunk< AuthState, { email: string, password: 
                 email: data.mail,
                 username: data.username,
                 phoneNumber : data.phoneNumber,
-                error: null
+                error: null,
+                paid : data.paid
             };
         } catch (error) {
             console.log(error);
@@ -61,6 +63,7 @@ export type AuthState = {
     error: string | null;
     username: string | null;
     phoneNumber : string | null;
+    paid : boolean;
 };
 
 const initialState: AuthState = {
@@ -69,7 +72,8 @@ const initialState: AuthState = {
     email: null,
     error: null,
     username: null,
-    phoneNumber : null
+    phoneNumber : null,
+    paid : false
 };
 
 export const authSlice = createSlice({
@@ -81,9 +85,13 @@ export const authSlice = createSlice({
             state.email = null;
             state.status = "not-authenticated";
             state.error = action.payload?? null;
+            state.paid = false;
         },
         clearError: (state: AuthState) => {
             state.error = null;
+        },
+        pay: (state: AuthState) => {
+            state.paid = true;
         }
     },
     extraReducers: (builder) => {
@@ -97,6 +105,7 @@ export const authSlice = createSlice({
             state.email = action.payload.email;
             state.username = action.payload.username;
             state.phoneNumber = action.payload.phoneNumber;
+            state.paid = action.payload.paid;
         });
         builder.addCase(login.rejected, (state, action) => {
             state.status = "not-authenticated";
@@ -120,4 +129,4 @@ export const authSlice = createSlice({
     }
 });
 
-export const { logout, clearError } = authSlice.actions;
+export const { logout, clearError, pay } = authSlice.actions;

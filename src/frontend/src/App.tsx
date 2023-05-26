@@ -9,17 +9,13 @@ import { GuestGuard } from './components/GuestGuard';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
 import { AdviseMyHome } from './screens/AdviseMyHome';
-import { Pay } from './screens/Pay';
 import { Toaster } from 'react-hot-toast';
 import { HouseDetail } from './screens/HouseDetail';
+import { Subscription } from './screens/Subscription';
 
 
 
 const router = createBrowserRouter([
-  {
-    path: "/pay",
-    element: <Pay/>
-  },
   {
     path: "/",
     element: <AuthGuard/>,
@@ -29,13 +25,17 @@ const router = createBrowserRouter([
         element: <HouseFeed/>,
       },
       {
+        path: "/pay",
+        element: <Subscription/>,
+      },
+      {
         path: "/AdviseMyHome",
         element: <AdviseMyHome/>,
       },
       {
         path: "/house/:email",
         element: <HouseDetail/>,
-      }
+      },
     ]
   },
   {
