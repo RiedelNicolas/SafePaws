@@ -9,7 +9,7 @@ interface Props {
 type ImageInfo = {
     ref: StorageReference;
     url: string
-  }
+}
 
 
 export const PrimaryPhoto = ({email} : Props) => {

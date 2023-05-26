@@ -2,25 +2,58 @@ import { useParams } from 'react-router-dom';
 import { HouseGallery } from '../components/HouseGallery';
 import { Publications, getHomeWithEmail } from '../components/ListOfHomes/getHomes';
 import { useEffect, useState } from 'react';
+import { decodeEmail } from '../utils/encodeEmail';
+import { getPhotos } from '../components/ListOfHomes/getPhotos';
+import { Button, Modal } from 'flowbite-react';
 
 export const HouseDetail = () => {
 
   const { email } = useParams();
-  // const [publication, setPublication] = useState<Publications>()
+  const [publication, setPublication] = useState<Publications>()
+  const [error, setError] = useState<string>('');
 
-  // const fetchHomes = async () => {
-  //   if (email) {
-  //     const publication = await getHomeWithEmail(email);
-  //     setPublication(publication);
-  //   }
-  // }
+  const [photos, setPhotos] = useState<string[]>();
 
-  // useEffect(() => {
-  //   fetchHomes();
-  // }, [])
+  const [showModal, setShowModal] = useState(false);
+
+
+  const fetchHomes = async () => {
+    if (email) {
+      try{
+        const publication = await getHomeWithEmail(decodeEmail(email));
+        if(publication && !Array.isArray(publication)){
+          setPublication(publication);
+        }else{
+          setError('No se encontró la publicación');
+        }
+      }catch(error){
+        setError('No se encontró la publicación');
+      }
+    }
+  }
+
+  const fetchPhotos = async () =>{
+    if (!email) return;
+    const _photos = await getPhotos(decodeEmail(email));
+    setPhotos(_photos);
+  }
+
+  useEffect(() => {
+    fetchHomes();
+    fetchPhotos();
+  }, [email])
 
   if (!email) {
     return <div>404</div>
+  }
+
+
+  if (!publication || !photos) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    )
   }
 
   return (
@@ -31,41 +64,108 @@ export const HouseDetail = () => {
           <div className="w-3/4 h-1/2">
 
             <div className="text-center">
-              <div className="text-4xl font-bold">Villa in Croacia</div>
-              <div className="text-2xl font-light text-neutral-500 mt-2">Europe, Croatia</div>
+              <div className="text-4xl font-bold">{publication.title}</div>
+              <div className="text-2xl font-light text-neutral-500 mt-2">{publication.location}</div>
             </div>
 
-            <div className="mt-8">
-              <HouseGallery />
+            <div className="mt-8" >
+              <HouseGallery photos={photos}/>
             </div>
 
-            <div className="mt-8 w-1/2">
-              <div className="text-start">
-                <div className="text-2xl font-bold">Description</div>
-                <div className="font-light text-neutral-500 mt-2">
-                  ¡Bienvenido a nuestro alojamiento en Croacia con impresionantes vistas al lago!
-
-                  Nuestro alojamiento está situado en un lugar idílico, en las hermosas tierras de Croacia, rodeado de la majestuosidad de un lago de aguas cristalinas. Este lugar ofrece una escapada perfecta para aquellos que buscan relajarse y disfrutar de la naturaleza en su máximo esplendor.
-
-                  El alojamiento en sí es una encantadora villa o cabaña, construida con materiales tradicionales que se integran perfectamente con el entorno natural. Cada detalle ha sido cuidadosamente diseñado para proporcionar comodidad y hacer que los huéspedes se sientan como en casa.
-
-                  Al entrar, serás recibido por una espaciosa y acogedora sala de estar, decorada con tonos cálidos y muebles confortables. Desde aquí, podrás contemplar las impresionantes vistas al lago a través de grandes ventanales que permiten que la luz natural inunde el espacio.
-
-                  La cocina está completamente equipada con todo lo necesario para preparar deliciosas comidas. Ya sea que desees disfrutar de un desayuno tranquilo con vistas al lago o preparar una cena romántica, encontrarás todo lo que necesitas a tu disposición.
-
-                  El alojamiento cuenta con varias habitaciones exquisitamente decoradas, cada una con su propio encanto y personalidad. Las camas son cómodas y están vestidas con sábanas suaves y acogedoras, garantizando una buena noche de sueño después de un día lleno de actividades.
-
-                  Pero sin duda, la joya de este alojamiento es su amplio balcón o terraza con vista al lago. Aquí podrás relajarte en cómodos asientos mientras disfrutas de la serenidad del paisaje. Ya sea que prefieras contemplar el amanecer sobre las tranquilas aguas del lago o maravillarte con un impresionante atardecer, esta vista panorámica te dejará sin aliento.
-
-                  Además, para aquellos que deseen explorar la zona, hay numerosas actividades disponibles cerca del alojamiento. Podrás disfrutar de paseos en bote por el lago, practicar deportes acuáticos emocionantes o simplemente dar un paseo por los senderos que rodean el lugar.
-
-                  En resumen, nuestro alojamiento en Croacia con vista al lago es un refugio perfecto para aquellos que buscan una experiencia tranquila y relajante en medio de la naturaleza. Con su encanto tradicional, comodidades modernas y vistas impresionantes, estamos seguros de que será una estancia inolvidable.
+            <div className="mt-8 flex">
+              <div className="w-1/2">
+                <div className="text-start">
+                  <div className="text-2xl font-bold">Description</div>
+                  <div className="font-light text-neutral-500 mt-2">
+                    {publication.description}
+                  </div>
                 </div>
               </div>
+              <div className="w-1/2">
+                <div className="text-start">
+                  <div className="text-2xl font-bold">Information</div>
+                  <div className="font-light text-neutral-500 mt-2">
+                    <div className="w-full">
+                      <div className="text-sm font-bold text-neutral-700 mb-1">Available</div>
+                      <div className="text-sm text-neutral-600">{`${publication.dateStart} to ${publication.dateEnd}`}</div>
+                    </div>
+                    <div className="w-full mt-4">
+                      <div className="text-sm font-bold text-neutral-700 mb-1">Pets to take care of</div>
+                      <div className="text-sm text-neutral-600">
+                        <ul className="list-disc list-inside">
+                          {publication.pets.map((pet, index) => (
+                            <li key={index}>
+                              <span className="font-bold">{pet.name}</span> - {pet.type}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="w-full mt-4">
+                      <div className="text-sm font-bold text-neutral-700 mb-1">Max sitters</div>
+                      <div className="text-sm text-neutral-600">I{publication.maxSitters}</div>
+                    </div>
+                    <div className="w-full mt-4">
+                      <div className="text-sm font-bold text-neutral-700 mb-1">Extra details</div>
+                      <div className="text-sm text-neutral-600">{publication.extraInfo}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center mt-8">
+              <Button className="w-full mt-4 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
+              onClick={()=>{setShowModal(true)}}
+              >
+                Reserve this place
+              </Button>
             </div>
           </div>
         </div>
       </div>
+      <ContactInfoModal onClose={()=>{setShowModal(false)}} showModal={showModal} publication={publication}/>
     </div>
   )
 }
+
+
+
+interface modalProps {
+  publication: Publications;
+  showModal: boolean;
+  onClose: () => void;
+}
+
+const ContactInfoModal = ({ publication, showModal, onClose }: modalProps) => {
+  const closeModal = () => {
+    // Add code to close the modal here
+  };
+
+  return (
+    <Modal show={showModal} onClose={onClose}>
+      <Modal.Header>
+        Contact the Home owner!
+    </Modal.Header>
+  <Modal.Body>
+    <div className="space-y-6">
+      <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+      Please note that the service is still under construction. However, here are the contact details of the host owner. Kindly remember to be polite. We anticipate that in the near future, you will be able to contact them directly within the app. Thank you for your understanding as we work on enhancing the platform.
+      </p>
+    </div>
+    <div className="py-5">
+      <div className="font-bold text-purple-500">Name:</div>
+      <div>{publication.ownerName}</div>
+      <div className="font-bold text-purple-500">Email:</div>
+      <div>{publication.owner}</div>
+      <div className="font-bold text-purple-500">Telephone:</div>
+      <div>{publication.contact}</div>
+    </div>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button onClick={onClose} className='bg-violet-500'>
+      Done
+    </Button>
+  </Modal.Footer>
+    </Modal>
+  );
+};

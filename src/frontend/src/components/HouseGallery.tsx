@@ -4,10 +4,10 @@ export type PlaceInfo = {
     photos: string[];
 }
 
-export const HouseGallery = () => {
+export const HouseGallery = ({photos} : PlaceInfo) => {
 
     const place: PlaceInfo = {
-        photos: images
+        photos: photos
     }
 
     const [showAllPhotos, setShowAllPhotos] = useState(false);
@@ -65,16 +65,3 @@ export const HouseGallery = () => {
     );
 
 }
-
-const images = [
-    "/house_1/1.webp",
-    "/house_1/2.webp",
-    "/house_1/3.webp",
-    "/house_1/4.webp",
-    "/house_1/5.webp",
-    "/house_1/6.webp",
-    "/house_1/7.webp",
-    "/house_1/8.webp",
-    "/house_1/9.webp",
-]
-

@@ -62,7 +62,7 @@ const mapResponseOne = (data: Publications) => {
 
 export const getHomeWithEmail = async (email: string) => {
   try {
-    const response = await api.get<HomeResponse>('/publications' + email);
+    const response = await api.get<HomeResponse>('/publications/' + email);
     if (!response.data.data[0]) {
       throw Error("No publication recieved");
     }
