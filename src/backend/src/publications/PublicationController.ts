@@ -15,7 +15,9 @@ export default class PublicationController {
         try {
             // data validation
             const publication: IPublication = {
-                owner: "email@gmail.com",        //TODO: que salga del JWT
+                owner: req.body.owner,
+                ownerName: req.body.ownerName,
+                maxSitters: req.body.maxSitters,
                 title: req.body.title,
                 description: req.body.description,
                 extraInfo: req.body.extraInfo,
@@ -28,6 +30,8 @@ export default class PublicationController {
                 petSitter: null,
                 status: "active"
             };
+
+            console.log(publication);
 
             const errors = await validatePublication(publication);
             if (errors.length > 0 || !validateDate(publication)) {

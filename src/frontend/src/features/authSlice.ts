@@ -1,5 +1,4 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import 'redux-thunk/extend-redux'
 import { AxiosError } from "axios";
 import api from "../api/api";
 
@@ -14,7 +13,7 @@ export const login = createAsyncThunk< AuthState, { email: string, password: str
             return {
                 status: "authenticated",
                 token: data.token,
-                email: data.email,
+                email: data.mail,
                 username: data.username,
                 phoneNumber : data.phoneNumber,
                 error: null
@@ -39,7 +38,7 @@ export const register = createAsyncThunk< AuthState, { email: string, password: 
             return {
                 status: "authenticated",
                 token: data.token,
-                email: data.email,
+                email: data.mail,
                 username: data.username,
                 phoneNumber : data.phoneNumber,
                 error: null
@@ -82,8 +81,6 @@ export const authSlice = createSlice({
             state.email = null;
             state.status = "not-authenticated";
             state.error = action.payload?? null;
-            state.phoneNumber = null;
-            state.username = null;
         },
         clearError: (state: AuthState) => {
             state.error = null;
