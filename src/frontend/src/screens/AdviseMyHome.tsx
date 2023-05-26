@@ -1,17 +1,23 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { PhotosUploader } from "../components/PhotosUploader"
 import { Perks } from "../components/Perks";
 import Datepicker from "react-tailwindcss-datepicker";
 import { DateValueType } from "react-tailwindcss-datepicker/dist/types";
 import { AddPetsList, Pet } from "../components/AddPetsList";
+import { useAppSelector } from "../store/hook";
+import api from "../api/api";
+import { successToast } from "../utils/toast";
+import { useNavigate } from "react-router-dom";
+import { set } from "firebase/database";
 
 export const AdviseMyHome = () => {
 
-  const [pets, setPets] = useState<Pet[]>([]);
-
+  const authState = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+  
   const [value, setValue] = useState<DateValueType>({
       startDate: new Date(),
-      endDate: new Date("May 28, 2023"),
+      endDate: new Date("Jun 31, 2023"),
   });
 
   const handleValueChange = (newValue: DateValueType) => {
@@ -25,6 +31,98 @@ export const AdviseMyHome = () => {
   const [extraInfo, setExtraInfo] = useState('');
   const [maxGuests, setMaxGuests] = useState<string>("1");
   const [perks, setPerks] = useState<string[]>([]);
+  const [pets, setPets] = useState<Pet[]>([]);
+  const [error, setError] = useState<string>();
+  const [loading, setLoading] = useState(false);
+  const [validating, setValidating] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
+
+
+  const getCurrentPublication = async () => {
+
+    try {
+      const response = await api.get('/publications/' + authState.email);
+
+      if(response.data.data[0]) {
+        const publication = response.data.data[0];
+        setTitle(publication.title);
+        setAddress(publication.location);
+        setDescription(publication.description);
+        setExtraInfo(publication.extraInfo);
+        setMaxGuests(publication.maxSitters.toString());
+        setPerks(publication.perks);
+        setPets(publication.pets);
+        setValue({
+          startDate: new Date(publication.dateStart),
+          endDate: new Date(publication.dateEnd),
+        });
+        setIsEdit(true);
+      }
+
+    } catch (e) {
+      console.log(e);
+    }
+    setValidating(false);
+  }
+
+  useEffect(() => {
+    getCurrentPublication();
+  }, []);
+  
+
+  const publish = async () => {
+    setLoading(true);
+    try {
+      await api.post('/publications/create', {
+        title,
+        description,
+        extraInfo,
+        location: address,
+        pets,
+        dateStart: value?.startDate,
+        dateEnd: value?.endDate,
+        perks,
+        contact : authState.phoneNumber ?? "0000000000",
+        maxSitters: parseInt(maxGuests),
+        ownerName: authState.username ?? "Unknown",
+        owner: authState.email ?? "asdasd@gmail.com",
+      });
+      successToast("Your place has been published!");
+      navigate('/');
+    }catch (e) {
+      setError("Something went wrong, please try again later.");
+    }
+    setLoading(false);
+  }
+
+  const onSubmit = async () => {
+    if(title === '') {
+      setError("Title is required");
+      return;
+    }
+    if(address === '') {
+      setError("Address is required");
+      return;
+    }
+    if(description === '') {
+      setError("Description is required");
+      return;
+    }
+    if (maxGuests === '') {
+      setError("Max guests is required");
+      return;
+    }
+    if (perks.length === 0) {
+      setError("Perks are required");
+      return;
+    }
+    if (pets.length === 0) {
+      setError("Pets are required");
+      return;
+    }
+    setError(undefined);
+    publish();
+  }
 
   function inputHeader(text: string) {
     return (
@@ -50,11 +148,20 @@ export const AdviseMyHome = () => {
     console.log("Save Place")
   }
 
+
+  if ( validating ) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
   return (
     <>
       <header className="bg-white shadow">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Advice your home, get your pet sitted!</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Advise your home, get your pet sitted!</h1>
         </div>
       </header>
       <div className="p-8" style={{ display: "flex", justifyContent: "center" }}>
@@ -118,11 +225,19 @@ export const AdviseMyHome = () => {
                         className="w-full border-2 border-gray-100 rounded-xl mt-1 bg-transparent" />
                     </div>
                   </div>
+
+                  <div style={{ display: (error) ? "" : 'none' }} className="mt-8 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <strong className="font-bold">Ups! </strong>
+                        <span className="block sm:inline">{error}</span>
+                        <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                  </div>
+
                   <button
-                    type="submit"
+                    onClick={onSubmit}
+                    disabled={loading}
                     className='w-full mt-4 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg'
                   >
-                    Save
+                    {loading ? "Loading ..." : {isEdit} ? "Save" : "Publish"}
                   </button>
                 </form>
               </div>

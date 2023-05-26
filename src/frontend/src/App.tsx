@@ -10,6 +10,7 @@ import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
 import { AdviseMyHome } from './screens/AdviseMyHome';
 import { Pay } from './screens/Pay';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -63,6 +64,7 @@ function App() {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <Toaster/>
           <RouterProvider router={router} />
         </PersistGate>
       </Provider>
