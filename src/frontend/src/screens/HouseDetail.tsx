@@ -76,7 +76,7 @@ export const HouseDetail = () => {
               <div className="w-1/2">
                 <div className="text-start">
                   <div className="text-2xl font-bold">Description</div>
-                  <div className="font-light text-neutral-500 mt-2">
+                  <div className="font-light text-neutral-500 mt-2 mx-2">
                     {publication.description}
                   </div>
                 </div>
@@ -101,6 +101,22 @@ export const HouseDetail = () => {
                         </ul>
                       </div>
                     </div>
+
+
+                    <div className="w-full mt-4">
+                      <div className="text-sm font-bold text-neutral-700 mb-1">Perks</div>
+                      <div className="text-sm text-neutral-600">
+                        <ul className="list-disc list-inside">
+                          {publication.perks.map((x, index) => (
+                            <li key={index}>
+                              <span className="font-bold capitalize">{x}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    
                     <div className="w-full mt-4">
                       <div className="text-sm font-bold text-neutral-700 mb-1">Max sitters</div>
                       <div className="text-sm text-neutral-600">I{publication.maxSitters}</div>
