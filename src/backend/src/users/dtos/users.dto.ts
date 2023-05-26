@@ -17,10 +17,14 @@ export class CreateUserDto {
   @IsNotEmpty()
   phoneNumber: string;
 
+  @IsNotEmpty()
+  paid :boolean;
+
   constructor(args) {
     this.email = args?.email;
     this.password = args?.password;
     this.username = args?.username;
     this.phoneNumber = args?.phoneNumber;
+    this.paid = args?.paid;
   }
 }

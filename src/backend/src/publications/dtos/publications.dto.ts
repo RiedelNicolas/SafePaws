@@ -10,6 +10,13 @@ export class CreatePublicationDto implements IPublication {
 
     @MaxLength(255)
     @IsNotEmpty()
+    ownerName: string;
+
+    @IsNotEmpty()
+    maxSitters: number;
+
+    @MaxLength(255)
+    @IsNotEmpty()
     title: string;
 
     @MaxLength(1000)
@@ -64,6 +71,9 @@ export class CreatePublicationDto implements IPublication {
         this.contact = args?.contact;
         this.petSitter = args?.petSitter;
         this.status = args?.status;
+        this.ownerName = args?.ownerName;
+        this.maxSitters = args?.maxSitters;
+        this.extraInfo = args?.extraInfo;
     }
 }
 

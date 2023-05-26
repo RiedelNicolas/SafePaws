@@ -1,5 +1,7 @@
 export interface IPublication {
     owner: string;
+    ownerName: string;
+    maxSitters: number;
     title: string;
     description: string;
     extraInfo: string;

@@ -9,6 +9,8 @@ import { GuestGuard } from './components/GuestGuard';
 import { LoginForm } from './components/LoginForm';
 import { RegisterForm } from './components/RegisterForm';
 import { AdviseMyHome } from './screens/AdviseMyHome';
+import { Toaster } from 'react-hot-toast';
+import { HouseDetail } from './screens/HouseDetail';
 import { Subscription } from './screens/Subscription';
 
 
@@ -23,9 +25,17 @@ const router = createBrowserRouter([
         element: <HouseFeed/>,
       },
       {
+        path: "/pay",
+        element: <Subscription/>,
+      },
+      {
         path: "/AdviseMyHome",
         element: <AdviseMyHome/>,
-      }
+      },
+      {
+        path: "/house/:email",
+        element: <HouseDetail/>,
+      },
     ]
   },
   {
@@ -44,10 +54,6 @@ const router = createBrowserRouter([
         path: "/password-recovery",
         element: <PasswordRecovery/>,
       },
-      {
-        path: "/pay",
-        element: <Subscription/>,
-      }
     ]
   },
   {
@@ -63,6 +69,7 @@ function App() {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <Toaster/>
           <RouterProvider router={router} />
         </PersistGate>
       </Provider>

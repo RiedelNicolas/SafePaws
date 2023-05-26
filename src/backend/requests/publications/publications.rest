@@ -19,7 +19,10 @@ content-type: application/json
     "dateStart": "2023-05-25T17:02:12.688Z",
     "dateEnd": "2023-05-25T17:04:12.688Z",
     "perks": ["wifi", "tv"],
-    "contact": "ilovesharks@sealandofficial.com"
+    "contact": "1125851999",
+    "ownerName": "Sharky",
+    "maxSitters": 2,
+    "owner":"nariedel@live.com"
 }
 
 ### Invalid publication, pet has the wrong format
