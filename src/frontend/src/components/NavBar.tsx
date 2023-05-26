@@ -41,7 +41,7 @@ export const NavBar = () => {
     }, [pathname]);
 
 
-    const isHomeSelected = pathname === '/';
+    const isHomeSelected = pathname === '/' || pathname.split('/')[1] === "house";
     const isAdviseMyHomeSelected = pathname === '/AdviseMyHome';
 
 
