@@ -119,7 +119,7 @@ export const HouseDetail = () => {
                     
                     <div className="w-full mt-4">
                       <div className="text-sm font-bold text-neutral-700 mb-1">Max sitters</div>
-                      <div className="text-sm text-neutral-600">I{publication.maxSitters}</div>
+                      <div className="text-sm text-neutral-600">{publication.maxSitters}</div>
                     </div>
                     <div className="w-full mt-4">
                       <div className="text-sm font-bold text-neutral-700 mb-1">Extra details</div>
@@ -130,7 +130,7 @@ export const HouseDetail = () => {
               </div>
             </div>
             <div className="flex justify-center mt-8">
-              <Button className="w-full transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
+              <Button className="w-full py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
               onClick={()=>{setShowModal(true)}}
               >
                 Reserve this place
