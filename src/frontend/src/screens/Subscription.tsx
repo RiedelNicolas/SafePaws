@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react"
-// import { usePaymentInputs } from 'react-payment-inputs';
 import { useAppSelector, useAppDispatch } from "../store/hook";
 import { logout, pay } from "../features/authSlice";
 import { successToast } from "../utils/toast";
 import api from "../api/api";
-// import images from 'react-payment-inputs/images';
-// import { payFee } from "../features/authSlice";
 
 export const Subscription = () => {
 
@@ -13,14 +10,8 @@ export const Subscription = () => {
 
   const dispatch = useAppDispatch();
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [address, setAddress] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-
-  
-
+  const [, setEmail] = useState('');
+  const [, setPhone] = useState('');
 
   useEffect(() => {
     if (authState.email) {
@@ -31,29 +22,9 @@ export const Subscription = () => {
     }
   }, [authState]);
 
-  function inputHeader(text: string) {
-    return (
-      <h2 className="text-2xl mt-4">{text}</h2>
-    );
-  }
-  function inputDescription(text: string) {
-    return (
-      <p className="text-gray-500 text-sm">{text}</p>
-    );
-  }
-  function preInput(header: string, description: string) {
-    return (
-      <>
-        {inputHeader(header)}
-        {inputDescription(description)}
-      </>
-    );
-  }
-
   const handleSubmit =  () => {
     submit();
   }
-
 
   const submit = async () => {
     try{

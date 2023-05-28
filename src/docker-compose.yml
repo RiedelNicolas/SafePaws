@@ -9,10 +9,10 @@ services:
     ports:
       - '3000:3000'
     command: npm run start
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: safe-paws-frontend
-  #   ports:
-  #     - '4173:4173'
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: safe-paws-frontend
+    ports:
+      - '4173:4173'

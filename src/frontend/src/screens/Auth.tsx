@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren } from "react";
 import {  useAppSelector } from "../store/hook";
 import { LoadingCircle } from "../components/LoadingCircle";
 import { DogCarousel } from "../components/DogCarousel";

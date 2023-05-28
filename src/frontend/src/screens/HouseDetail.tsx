@@ -10,7 +10,7 @@ export const HouseDetail = () => {
 
   const { email } = useParams();
   const [publication, setPublication] = useState<Publications>()
-  const [error, setError] = useState<string>('');
+  const [, setError] = useState<string>('');
 
   const [photos, setPhotos] = useState<string[]>();
 
@@ -153,9 +153,6 @@ interface modalProps {
 }
 
 const ContactInfoModal = ({ publication, showModal, onClose }: modalProps) => {
-  const closeModal = () => {
-    // Add code to close the modal here
-  };
 
   return (
     <Modal show={showModal} onClose={onClose}>
