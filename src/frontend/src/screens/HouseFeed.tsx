@@ -18,25 +18,20 @@ export function HouseFeed() {
 
 
 
-  if( !publications ) {
+  if (!publications) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
       </div>
     )
   }
-  
+
   return (
     <>
-      <div className="min-h-full">
-        <header className="bg-white shadow">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Find the best suite for you</h1>
-          </div>
-        </header>
+      <div className="bg-[#d8b4fe] h-screen">
         <main>
           <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            <HomesList publications = {publications}/>
+            <HomesList publications={publications} />
           </div>
         </main>
       </div>

@@ -158,14 +158,13 @@ export const AdviseMyHome = () => {
 
   return (
     <>
-      <header className="bg-white shadow">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Advise your home, get your pet sitted!</h1>
-        </div>
-      </header>
-      <div className="p-8" style={{ display: "flex", justifyContent: "center" }}>
+      <div className="bg-[#d8b4fe] p-8" style={{ display: "flex", justifyContent: "center" }}>
         <div className='w-full rounded-3xl bg-white border-4 border-gray-100'>
-          <div style={{ display: "flex", justifyContent: "center" }} className="mt-12 mb-12 h-full w-full">
+          <div className="flex justify-center mt-4 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Advise your home, get your pet sitted!</h1>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center" }} className="mb-12 h-full w-full">
             <div className="w-3/4 h-1/2">
 
               <div>
