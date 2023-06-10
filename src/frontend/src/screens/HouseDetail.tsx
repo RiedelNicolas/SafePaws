@@ -5,34 +5,33 @@ import { useEffect, useState } from 'react';
 import { decodeEmail } from '../utils/encodeEmail';
 import { getPhotos } from '../components/ListOfHomes/getPhotos';
 import { Button, Modal } from 'flowbite-react';
+import { PetGallery } from '../components/PetGallery';
 
 export const HouseDetail = () => {
 
   const { email } = useParams();
   const [publication, setPublication] = useState<Publications>()
   const [, setError] = useState<string>('');
-
   const [photos, setPhotos] = useState<string[]>();
-
   const [showModal, setShowModal] = useState(false);
 
 
   const fetchHomes = async () => {
     if (email) {
-      try{
+      try {
         const publication = await getHomeWithEmail(decodeEmail(email));
-        if(publication && !Array.isArray(publication)){
+        if (publication && !Array.isArray(publication)) {
           setPublication(publication);
-        }else{
+        } else {
           setError('No se encontró la publicación');
         }
-      }catch(error){
+      } catch (error) {
         setError('No se encontró la publicación');
       }
     }
   }
 
-  const fetchPhotos = async () =>{
+  const fetchPhotos = async () => {
     if (!email) return;
     const _photos = await getPhotos(decodeEmail(email));
     setPhotos(_photos);
@@ -69,7 +68,7 @@ export const HouseDetail = () => {
             </div>
 
             <div className="mt-8" >
-              <HouseGallery photos={photos}/>
+              <HouseGallery photos={photos} />
             </div>
 
             <div className="mt-8 flex">
@@ -92,13 +91,12 @@ export const HouseDetail = () => {
                     <div className="w-full mt-4">
                       <div className="text-sm font-bold text-neutral-700 mb-1">Pets to take care of</div>
                       <div className="text-sm text-neutral-600">
-                        <ul className="list-disc list-inside">
-                          {publication.pets.map((pet, index) => (
-                            <li key={index}>
-                              <span className="font-bold">{pet.name}</span> - {pet.type}
-                            </li>
-                          ))}
-                        </ul>
+                        {publication.pets.map((pet, index) => (
+                          <div className="flex items-center mb-4" key={index}>
+                            <span className="font-bold">{pet.name}</span> - {pet.type}
+                            <PetGallery petName={pet.name} />
+                          </div>
+                        ))}
                       </div>
                     </div>
 
@@ -116,7 +114,7 @@ export const HouseDetail = () => {
                       </div>
                     </div>
 
-                    
+
                     <div className="w-full mt-4">
                       <div className="text-sm font-bold text-neutral-700 mb-1">Max sitters</div>
                       <div className="text-sm text-neutral-600">{publication.maxSitters}</div>
@@ -131,7 +129,7 @@ export const HouseDetail = () => {
             </div>
             <div className="flex justify-center mt-8">
               <Button className="w-full py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
-              onClick={()=>{setShowModal(true)}}
+                onClick={() => { setShowModal(true) }}
               >
                 Reserve this place
               </Button>
@@ -139,7 +137,7 @@ export const HouseDetail = () => {
           </div>
         </div>
       </div>
-      <ContactInfoModal onClose={()=>{setShowModal(false)}} showModal={showModal} publication={publication}/>
+      <ContactInfoModal onClose={() => { setShowModal(false) }} showModal={showModal} publication={publication} />
     </div>
   )
 }
@@ -158,27 +156,27 @@ const ContactInfoModal = ({ publication, showModal, onClose }: modalProps) => {
     <Modal show={showModal} onClose={onClose}>
       <Modal.Header>
         Contact the Home owner!
-    </Modal.Header>
-  <Modal.Body>
-    <div className="space-y-6">
-      <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-      Please note that the service is still under construction. However, here are the contact details of the host owner. Kindly remember to be polite. We anticipate that in the near future, you will be able to contact them directly within the app. Thank you for your understanding as we work on enhancing the platform.
-      </p>
-    </div>
-    <div className="py-5">
-      <div className="font-bold text-purple-500">Name:</div>
-      <div>{publication.ownerName}</div>
-      <div className="font-bold text-purple-500">Email:</div>
-      <div>{publication.owner}</div>
-      <div className="font-bold text-purple-500">Telephone:</div>
-      <div>{publication.contact}</div>
-    </div>
-  </Modal.Body>
-  <Modal.Footer>
-    <Button onClick={onClose} className='bg-violet-500'>
-      Done
-    </Button>
-  </Modal.Footer>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="space-y-6">
+          <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+            Please note that the service is still under construction. However, here are the contact details of the host owner. Kindly remember to be polite. We anticipate that in the near future, you will be able to contact them directly within the app. Thank you for your understanding as we work on enhancing the platform.
+          </p>
+        </div>
+        <div className="py-5">
+          <div className="font-bold text-purple-500">Name:</div>
+          <div>{publication.ownerName}</div>
+          <div className="font-bold text-purple-500">Email:</div>
+          <div>{publication.owner}</div>
+          <div className="font-bold text-purple-500">Telephone:</div>
+          <div>{publication.contact}</div>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={onClose} className='bg-violet-500'>
+          Done
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 };
