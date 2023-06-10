@@ -13,10 +13,10 @@ export const AdviseMyHome = () => {
 
   const authState = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
-  
+
   const [value, setValue] = useState<DateValueType>({
-      startDate: new Date(),
-      endDate: new Date("Jun 31, 2023"),
+    startDate: new Date(),
+    endDate: new Date("Jun 31, 2023"),
   });
 
   const handleValueChange = (newValue: DateValueType) => {
@@ -42,7 +42,7 @@ export const AdviseMyHome = () => {
     try {
       const response = await api.get('/publications/' + authState.email);
 
-      if(response.data.data[0]) {
+      if (response.data.data[0]) {
         const publication = response.data.data[0];
         setTitle(publication.title);
         setAddress(publication.location);
@@ -67,7 +67,7 @@ export const AdviseMyHome = () => {
   useEffect(() => {
     getCurrentPublication();
   }, []);
-  
+
 
   const publish = async () => {
     setLoading(true);
@@ -81,29 +81,29 @@ export const AdviseMyHome = () => {
         dateStart: value?.startDate,
         dateEnd: value?.endDate,
         perks,
-        contact : authState.phoneNumber ?? "0000000000",
+        contact: authState.phoneNumber ?? "0000000000",
         maxSitters: parseInt(maxGuests),
         ownerName: authState.username ?? "Unknown",
         owner: authState.email ?? "asdasd@gmail.com",
       });
       successToast("Your place has been published!");
       navigate('/');
-    }catch (e) {
+    } catch (e) {
       setError("Something went wrong, please try again later.");
     }
     setLoading(false);
   }
 
   const onSubmit = async () => {
-    if(title === '') {
+    if (title === '') {
       setError("Title is required");
       return;
     }
-    if(address === '') {
+    if (address === '') {
       setError("Address is required");
       return;
     }
-    if(description === '') {
+    if (description === '') {
       setError("Description is required");
       return;
     }
@@ -148,7 +148,7 @@ export const AdviseMyHome = () => {
   }
 
 
-  if ( validating ) {
+  if (validating) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
@@ -185,25 +185,25 @@ export const AdviseMyHome = () => {
                     placeholder="Address"
                     className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent" />
                   {preInput('Photos', 'At leaste one, More = Better')}
-                  <PhotosUploader />
+                  <PhotosUploader folder={null} />
                   {preInput('Description', 'Description of the place')}
                   <textarea
                     value={description}
                     onChange={ev => setDescription(ev.target.value)}
-                    style={{minHeight: "100px"}}
+                    style={{ minHeight: "100px" }}
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                   {preInput('Perks', 'Select all the perks of your place')}
                   {<div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
                     <Perks perks={perks} setPerks={setPerks} />
                   </div>}
                   {preInput('Pets', 'Describe the pets you have, the sitter will take care of them :)')}
-                  <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-                    <AddPetsList  pets={pets} setPets={setPets}/>
+                  <div className="grid mt-2 gap-2">
+                    <AddPetsList pets={pets} setPets={setPets} />
                   </div>
                   {preInput('Extra information', 'House rules, etc')}
                   <textarea
                     value={extraInfo}
-                    style={{minHeight: "100px"}}
+                    style={{ minHeight: "100px" }}
                     onChange={ev => setExtraInfo(ev.target.value)}
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                   {preInput('Accommodation information', 'Add information about the stayover')}
@@ -226,9 +226,9 @@ export const AdviseMyHome = () => {
                   </div>
 
                   <div style={{ display: (error) ? "" : 'none' }} className="mt-8 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                        <strong className="font-bold">Ups! </strong>
-                        <span className="block sm:inline">{error}</span>
-                        <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                    <strong className="font-bold">Ups! </strong>
+                    <span className="block sm:inline">{error}</span>
+                    <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
                   </div>
 
                   <button
@@ -236,7 +236,7 @@ export const AdviseMyHome = () => {
                     disabled={loading}
                     className='w-full mt-4 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg'
                   >
-                    {loading ? "Loading ..." : {isEdit} ? "Save" : "Publish"}
+                    {loading ? "Loading ..." : { isEdit } ? "Save" : "Publish"}
                   </button>
                 </form>
               </div>

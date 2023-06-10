@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PhotosUploader } from "./PhotosUploader";
 
 export type Pet = {
   name: string;
@@ -30,6 +31,7 @@ export const AddPetsList = ({pets, setPets} : Props) => {
             <div>
               <h2 className="text-lg font-bold">{pet.name}</h2>
               <p className="text-gray-500">{pet.type}</p>
+              <PhotosUploader folder={pet.name}/>
             </div>
 
             <button
